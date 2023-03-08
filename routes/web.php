@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +13,6 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::get('/login', ['App\Http\Controllers\LoginController', 'index'])->name('user.login');
-Route::post('/login', ['App\Http\Controllers\LoginController', 'actionmasuk'])->name('user.login.simpan');
+Route::get('/', function () {
+    return view('welcome');
+});
