@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/login', [LoginController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'dashboard']);
