@@ -96,7 +96,6 @@ class AuthController extends Controller
         if (!$user || !\Hash::check($request->password, $user->password)){
             return response()->json([
                 'message' => 'ANAOUTHORIZED'], 401);
-       
         }
         $token = $user->createToken('token-name')->plainTextToken;
         return response()->json(
@@ -107,5 +106,6 @@ class AuthController extends Controller
             ],
             200,
         );
+        return redirect()->intended('/dashboard');
     }
 }

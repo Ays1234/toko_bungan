@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth:sanctum'],function () {
 });
 
 
+//kode 001 dibawah ini untuk profil kalau mau nanya di https://github.com/yogi-maulana-dev
 Route::post('login',[AuthController::class, 'login']);
 
 
