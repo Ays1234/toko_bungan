@@ -9,13 +9,14 @@ class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *  Web Routes API Routes create by https://github.com/yogi-maulana-dev
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         //
-        return view('backend.dashboard');
+        return view('backend/dashboard/index');
     }
 
     /**
