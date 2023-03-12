@@ -26,16 +26,16 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 // home page
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+// Route::get('/', function () {
+//     return view('home');
+// })->name('home');
 
 // login
-// Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
-//     Route::get('/', function () {
-//         return view('backend/login/index');
-//     })->name('index');
-// });
+Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
+    Route::get('/', function () {
+        return view('backend/login/index');
+    })->name('index');
+});
 
 // profile
 Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
