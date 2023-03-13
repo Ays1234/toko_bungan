@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Staff;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class StaffController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource. create by https://github.com/yogi-maulana-dev
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         //
+        return view('backend/staff.index');
     }
 
     /**
