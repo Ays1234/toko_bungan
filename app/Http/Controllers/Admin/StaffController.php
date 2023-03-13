@@ -33,7 +33,7 @@ class StaffController extends Controller
         //
         $validation = Validator::make(request()->all(), [
             'name' => 'required',
-            'email' => 'required|dns:email',
+            'email' => 'required|email|unique:staff',
             'password' => '',
             'status' => '',
         ]);

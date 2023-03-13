@@ -45,7 +45,8 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                        <form id="submitData" action="/create" method="post" style="overflow-x: none">
+                        <form id="submitData" action="/add_staff/create" method="post" style="overflow-x: none">
+                            @csrf
                             <div class="row px-2">
                                 <div class="col-sm-12">
                                     <div class="form-group row">
@@ -87,8 +88,8 @@
                                         <div class="col-md-9">
                                             <select name='status' class="select2 form-control">
                                                 <option></option>
-                                                <option value="Aktif">Aktif</option>
-                                                <option value="Non Aktif">Non Aktif</option>
+                                                <option value="active">Aktif</option>
+                                                <option value="disable">Non Aktif</option>
                                             </select>
                                         </div>
                                     </div>

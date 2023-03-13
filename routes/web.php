@@ -27,7 +27,7 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 //staff
-Route::post('/create', [StaffController::class, 'create']);
+Route::post('/add_staff/create', [StaffController::class, 'create']);
 
 // home page
 // Route::get('/', function () {
