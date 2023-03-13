@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Api\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\StaffController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,9 @@ Route::get('/', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/logout', [AuthController::class, 'logout']);
+
+//staff
+Route::post('/create', [StaffController::class, 'create']);
 
 // home page
 // Route::get('/', function () {

@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Staff;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Staff;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Uuid;
 
 class StaffController extends Controller
 {
@@ -28,6 +31,49 @@ class StaffController extends Controller
     public function create()
     {
         //
+        $validation = Validator::make(request()->all(), [
+            'name' => 'required',
+            'email' => 'required|dns:email',
+            'password' => '',
+            'status' => '',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json(
+                [
+                    'status' => false,
+                    'error' => false,
+                    'message' => 'Error',
+                    'data' => null,
+                ],
+                200,
+            );
+        }
+        $staff = Staff::create([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => Hash::make(request('password')),
+            'status' => request('status'),
+        ]);
+
+        if ($staff) {
+            return response()->json(
+                [
+                    'status' => true,
+                    'error' => false,
+                    'message' => 'success',
+                    'data' => $staff,
+                ],
+                200,
+            );
+        } else {
+            return response()->json([
+                'status' => false,
+                'error' => false,
+                'message' => 'success',
+                'data' => $staff,
+            ]);
+        }
     }
 
     /**
