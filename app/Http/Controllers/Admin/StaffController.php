@@ -19,8 +19,11 @@ class StaffController extends Controller
      */
     public function index()
     {
-        //
-        return view('backend/staff.index');
+        return view('backend/master/staff/index', [
+            'title' => 'Staff',
+            //Buku::all() disini digunakan untuk menampilkan semua data pada Model Buku
+            'staffs' => Staff::all(),
+        ]);
     }
 
     /**
@@ -107,6 +110,12 @@ class StaffController extends Controller
     public function edit($id)
     {
         //
+        $staff = Staff::select('*')
+            ->where('id', $id)
+            ->get();
+
+        return view('backend/master/staff/edit', ['id' => $staff]);
+        // return view('backend/master/staff/edit/', compact('id'));
     }
 
     /**
@@ -118,7 +127,40 @@ class StaffController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        return $id;
         //
+        // $validation = Validator::make($request->all(), [
+        //     'name' => 'required',
+        //     'email' => 'required|email|unique:staff',
+        //     'password' => '',
+        //     'status' => '',
+        // ]);
+        // if ($validation->fails()) {
+        //     return response()->json(['status' => true, 'error' => false, 'message' => 'success', 'data' => null], 200);
+        // }
+        // $updatedatastaff = Staff::find($id);
+        // $datastaff = $updatedatastaff->update([
+        //     'name' =>request('name'),
+        //     'email' => request('email'),
+        //     'password' => request('password'),
+        //     'status' => request('status')
+        // ]);
+        // if ($datastaff) {
+        //     return response()->json([
+        //         'status' => true,
+        //         'error' => false,
+        //         'message' => 'success',
+        //         'data' => $datastaff,
+        //     ]);
+        // } else {
+        //     return response()->json([
+        //         'status' => false,
+        //         'error' => false,
+        //         'message' => 'error',
+        //         'data' => null,
+        //     ]);
+        // }
     }
 
     /**

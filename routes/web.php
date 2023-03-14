@@ -28,6 +28,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 //staff
 Route::post('/add_staff/create', [StaffController::class, 'create']);
+Route::post('/update_staff/update', [StaffController::class, 'update']);
 
 // home page
 // Route::get('/', function () {
@@ -115,13 +116,15 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
 
 // Master
 // Staff
-Route::group(['prefix' => 'staff', 'as' => 'staff.'], function () {
-    Route::get('/', function () {
-        return view('backend/master/staff/index');
-    })->name('index');
+Route::group(['prefix' => 'staff', 'as' => 'staff.'], function () {    
+    Route::get('/', [StaffController::class, 'index'])->name('index');
     Route::get('/form', function () {
         return view('backend/master/staff/form');
     })->name('form');
+    // Route::get('edit/{id}', function () {
+    //     return view('backend/master/staff/edit');
+    // })->name('edit');
+    Route::get('edit/{id}', [StaffController::class, 'edit']);
 });
 // Category_press
 Route::group(['prefix' => 'category', 'as' => 'category.'], function () {

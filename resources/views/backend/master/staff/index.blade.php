@@ -51,15 +51,23 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $no = 1; @endphp
+                                @foreach ($staffs as $item)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Panji</td>
-                                    <td>panji@gmail.com</td>
-                                    <td><span class="lable label-primary px-2 rounded">Aktif</span></td>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    @if ($item->status =='active')
+                                        <td><span class="lable label-primary px-2 rounded">{{ $item->status }}</span></td>          
+                                  
+                                    @else
+                                        <td><span class="lable label-warning px-2 rounded">{{ $item->status }}</span></td>          
+                                  
+                                  @endif
+                                 <td>
+                                        <a href="/staff/edit/{{ $item->id }}"><button class="btn btn-secondary btn-sm" type="button">
                                             <i class="fa fa-pencil"></i>
-                                        </button>
+                                        </button></a>
                                         <button class="btn btn-dark btn-sm" type="button">
                                             <i class="fa fa-trash"></i>
                                         </button>
@@ -68,23 +76,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Cahyono</td>
-                                    <td>cahyono@gmail.com</td>
-                                    <td><span class="lable label-primary px-2 rounded">Aktif</span></td>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                        <a data-toggle="modal" href="#modal-form" class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <div id="modal-form" class="modal fade" aria-hidden="true">
