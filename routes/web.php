@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Api\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\StaffController;
@@ -28,7 +27,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 //staff
 Route::post('/add_staff/create', [StaffController::class, 'create']);
-Route::post('/update_staff/update', [StaffController::class, 'update']);
+Route::post('/update/{id}', [StaffController::class, 'update']);
 
 // home page
 // Route::get('/', function () {

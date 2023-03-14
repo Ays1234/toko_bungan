@@ -16,12 +16,12 @@ use App\Http\Controllers\Api\Admin\AuthController;
 */
 
 Route::group(['middleware' => 'auth:sanctum'],function () {
-    Route::post('/register',[AuthController::class, 'create']);
+    // Route::post('/register',[AuthController::class, 'create']);
     Route::get('/logout',[AuthController::class, 'logout']);
 // dibawah ini untuk profil kalau mau nanya di https://github.com/yogi-maulana-dev
-    Route::get('/edit/{id}',[register::class, 'edit']);
-    Route::post('/update/{id}',[register::class, 'update']);
-    Route::get('/delete/{id}',[register::class, 'delete']);
+    // Route::get('/edit/{id}',[register::class, 'edit']);
+    // Route::post('/update/{id}',[register::class, 'update']);
+    // Route::get('/delete/{id}',[register::class, 'delete']);
 });
 
 
