@@ -89,8 +89,8 @@
                                         <div class="col-md-9">
                                             <select name='status' class="select2 form-control">
                                                 <option></option>
-                                                <option value="active">Aktif</option>
-                                                <option value="disable">Non Aktif</option>
+                                                <option value="active" {{ $staff->status =='active' ? 'selected' : '' }}>Aktif</option>
+                                                <option value="disable" {{ $staff->status =='disable' ? 'selected' : '' }}>Non Aktif</option>
                                             </select>
                                         </div>
                                     </div>
