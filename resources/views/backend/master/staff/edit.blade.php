@@ -46,7 +46,7 @@
                 </div>
                 <div class="ibox-content">
                     @foreach($id as $staff)
-                        <form id="submitData" action="/update/{{ $staff->name }}" method="post" style="overflow-x: none">
+                        <form id="submitData" action="/update_staff/{{ $staff->id }}" method="post" style="overflow-x: none">
                             @csrf
                             <div class="row px-2">
                                 <div class="col-sm-12">
@@ -117,14 +117,14 @@
 @endsection
 @push('scripts')
 <script>
-    function showpass() {
-    var x = document.getElementById("password");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
-    }
+    // function showpass() {
+    // var x = document.getElementById("password");
+    //     if (x.type === "password") {
+    //         x.type = "text";
+    //     } else {
+    //         x.type = "password";
+    //     }
+    // }
     $(document).ready(function () {
         $(".select2").select2({
             placeholder: "pilih status ....",
