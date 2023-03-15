@@ -13,9 +13,11 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
+        $this->middleware('auth');
         return view('backend/dashboard/index');
     }
 

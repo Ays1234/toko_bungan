@@ -60,6 +60,8 @@ class StaffController extends Controller
         ]);
 
         if ($staff) {
+            return redirect()->route('staff.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        
             return response()->json(
                 [
                     'status' => true,
@@ -128,39 +130,41 @@ class StaffController extends Controller
     public function update(Request $request, $id)
     {
 
-        return $id;
-        //
-        // $validation = Validator::make($request->all(), [
-        //     'name' => 'required',
-        //     'email' => 'required|email|unique:staff',
-        //     'password' => '',
-        //     'status' => '',
-        // ]);
+        // return $id;
+        
+        $validation = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:staff',
+            'password' => '',
+            'status' => '',
+        ]);
         // if ($validation->fails()) {
         //     return response()->json(['status' => true, 'error' => false, 'message' => 'success', 'data' => null], 200);
         // }
-        // $updatedatastaff = Staff::find($id);
-        // $datastaff = $updatedatastaff->update([
-        //     'name' =>request('name'),
-        //     'email' => request('email'),
-        //     'password' => request('password'),
-        //     'status' => request('status')
-        // ]);
-        // if ($datastaff) {
-        //     return response()->json([
-        //         'status' => true,
-        //         'error' => false,
-        //         'message' => 'success',
-        //         'data' => $datastaff,
-        //     ]);
-        // } else {
-        //     return response()->json([
-        //         'status' => false,
-        //         'error' => false,
-        //         'message' => 'error',
-        //         'data' => null,
-        //     ]);
-        // }
+        $updatedatastaff = Staff::find($id);
+        $datastaff = $updatedatastaff->update([
+            'name' =>request('name'),
+            'email' => request('email'),
+            'password' => request('password'),
+            'status' => request('status')
+        ]);
+        if ($datastaff) {
+            return redirect()->route('staff.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        
+            return response()->json([
+                'status' => true,
+                'error' => false,
+                'message' => 'success',
+                'data' => $datastaff,
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'error' => false,
+                'message' => 'error',
+                'data' => null,
+            ]);
+        }
     }
 
     /**
@@ -169,8 +173,33 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         //
+        $destroy=Staff::find($id);
+
+        $datadestroy=$destroy->delete();
+
+        if($datadestroy){
+            return redirect()->route('staff.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        
+            return response()->json([
+                'status' => true,
+                'error' => false,
+                'message' => 'success',
+                'data' => $datadestroy
+            ]);
+        } else {
+            return response()->json(
+                [
+                    'status'=> false,
+                    'error'=>false,
+                    'message'=>'Error',
+                    'data' => null
+                ]
+            );
+        }
     }
+
+    
 }

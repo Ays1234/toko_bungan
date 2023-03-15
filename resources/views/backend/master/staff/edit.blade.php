@@ -46,7 +46,7 @@
                 </div>
                 <div class="ibox-content">
                     @foreach($id as $staff)
-                        <form id="submitData" action="/update" method="post" style="overflow-x: none">
+                        <form id="submitData" action="/update/{{ $staff->name }}" method="post" style="overflow-x: none">
                             @csrf
                             <div class="row px-2">
                                 <div class="col-sm-12">

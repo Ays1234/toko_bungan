@@ -20,14 +20,15 @@ use App\Http\Controllers\Admin\StaffController;
 //     return view('welcome');
 //  });
 
-Route::get('/', [AuthController::class, 'index']);
+Route::get('/', [AuthController::class, 'index'])->name('login')->middleware('guest');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 //staff
 Route::post('/add_staff/create', [StaffController::class, 'create']);
-Route::post('/update/{id}', [StaffController::class, 'update']);
+Route::post('/update_staff/{id}', [StaffController::class, 'update']);
+Route::post('/destroy/{id}', [StaffController::class, 'destroy']);
 
 // home page
 // Route::get('/', function () {
@@ -38,7 +39,7 @@ Route::post('/update/{id}', [StaffController::class, 'update']);
 Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
     Route::get('/', function () {
         return view('backend/login/index');
-    })->name('index');
+    })->name('index')->middleware('guest');
 });
 
 // profile
@@ -110,20 +111,20 @@ Route::group(['prefix' => 'contact', 'as' => 'contact.'], function () {
 Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
     Route::get('/', function () {
         return view('backend/dashboard/index');
-    })->name('index');
+    })->name('index')->middleware('auth');
 });
 
 // Master
 // Staff
 Route::group(['prefix' => 'staff', 'as' => 'staff.'], function () {    
-    Route::get('/', [StaffController::class, 'index'])->name('index');
+    Route::get('/', [StaffController::class, 'index'])->name('index')->middleware('auth');
     Route::get('/form', function () {
         return view('backend/master/staff/form');
-    })->name('form');
+    })->name('form')->middleware('auth');
     // Route::get('edit/{id}', function () {
     //     return view('backend/master/staff/edit');
     // })->name('edit');
-    Route::get('edit/{id}', [StaffController::class, 'edit']);
+    Route::get('edit/{id}', [StaffController::class, 'edit'])->middleware('auth');
 });
 // Category_press
 Route::group(['prefix' => 'category', 'as' => 'category.'], function () {

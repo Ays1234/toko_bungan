@@ -65,15 +65,18 @@
                                   
                                   @endif
                                  <td>
+                                    <div class='btn-group'>
                                         <a href="/staff/edit/{{ $item->id }}"><button class="btn btn-secondary btn-sm" type="button">
                                             <i class="fa fa-pencil"></i>
-                                        </button></a>
-                                        <button class="btn btn-dark btn-sm" type="button">
+                                        </button></a> </div>
+                                        <div class='btn-group'>
+                                     <form action="/destroy/{{ $item->id }}" method="POST">   @csrf <button type="submit" class="btn btn-dark btn-sm" type="button">
                                             <i class="fa fa-trash"></i>
-                                        </button>
+                                        </button></form></div>
                                         <a data-toggle="modal" href="#modal-form" class="btn btn-secondary btn-sm" type="button">
                                             <i class="fa fa-search"></i>
                                         </a>
+                                    </div>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -88,7 +91,9 @@
                                                 <h4>Detail</h4>
                                             <div class="table-responsive m-3">
                                                 <table id="table1" class="table">
-                                                    <thead>
+                                                    <thead>   
+                                                @php $no = 1; @endphp
+                                                @foreach ($staffs as $item)
                                                         <tr>
                                                             <th>No</th>
                                                             <th>Nama Kolom</th>
@@ -121,6 +126,7 @@
                                                             <td>Tgl.Buat</td>
                                                             <td>07/03/2023</td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -195,5 +201,16 @@
             ]
         });
     });
+
+       //message with toastr
+       @if(session()->has('success'))
+        
+        toastr.success('{{ session('success') }}', 'BERHASIL!'); 
+
+    @elseif(session()->has('error'))
+
+        toastr.error('{{ session('error') }}', 'GAGAL!'); 
+        
+    @endif
 </script>
 @endpush

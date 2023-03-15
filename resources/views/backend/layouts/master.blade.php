@@ -59,7 +59,7 @@
         <link href="{{ asset('assets/inspinia/css/plugins/dualListbox/bootstrap-duallistbox.min.css') }}" rel="stylesheet">
 
         <link href="{{ asset('assets/inspinia/css/animate.css') }}" rel="stylesheet">
-
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     </head>
 
@@ -149,7 +149,7 @@
 
         <!-- Dual Listbox -->
         <script src="{{ asset('assets/inspinia/js/plugins/dualListbox/jquery.bootstrap-duallistbox.js') }}"></script>
-
+        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         @stack('scripts')
     </body>
 
