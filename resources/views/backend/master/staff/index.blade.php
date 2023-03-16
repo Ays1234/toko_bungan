@@ -125,7 +125,7 @@
                                                         <tr>
                                                             <td>3</td>
                                                             <td>status</td>
-                                                            <td><span id="status"></span>
+                                                            <td><p id="status"></p>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -221,7 +221,12 @@
                 var status = $(this).data('status');
                 $('#name').text(name);
                 $('#email').text(email);
-                $('#status').text(status);
+                // $('#status').text(status);
+                if (status === 'disable') {
+    $('#status').html('<span class="lable label-warning px-2 rounded">disable</span>');
+  } else  {
+    $('#status').html('<span class="lable label-primary px-2 rounded">active</span>');
+  }
             })
         })
 
