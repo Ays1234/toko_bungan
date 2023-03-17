@@ -14,9 +14,9 @@ class Carrousel extends Model
     use Uuid;
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'status',
+        'banner',
+        'type_device',
+        'id_staff',
+        'last_login',
     ];
 }
