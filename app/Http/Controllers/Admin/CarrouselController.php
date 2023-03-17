@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Staff;
+use App\Models\Carrousel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +19,10 @@ class CarrouselController extends Controller
     public function index()
     {
         //
+        return view('backend/content/carrousel_home/index', [
+            //Buku::all() disini digunakan untuk menampilkan semua data pada Model Buku
+            'carrousels' => Carrousel::all(),
+        ]);
     }
 
     /**
@@ -29,6 +33,51 @@ class CarrouselController extends Controller
     public function create()
     {
         //
+        $validation = Validator::make(request()->all(), [
+            'banner_image' => 'required',
+            'email' => 'required|email|unique:staff',
+            'password' => '',
+            'status' => '',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json(
+                [
+                    'status' => false,
+                    'error' => false,
+                    'message' => 'Error',
+                    'data' => null,
+                ],
+                200,
+            );
+        }
+        $staff = Staff::create([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => Hash::make(request('password')),
+            'status' => request('status'),
+        ]);
+
+        if ($staff) {
+            return redirect()->route('staff.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        
+            return response()->json(
+                [
+                    'status' => true,
+                    'error' => false,
+                    'message' => 'success',
+                    'data' => $staff,
+                ],
+                200,
+            );
+        } else {
+            return response()->json([
+                'status' => false,
+                'error' => false,
+                'message' => 'success',
+                'data' => $staff,
+            ]);
+        }
     }
 
     /**

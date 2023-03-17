@@ -15,7 +15,7 @@ class CreateCarrouselTable extends Migration
     {
         Schema::create('carrousel', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('banner');
+            $table->string('banner_image');
             $table->enum('type_device', ['desktop', 'mobile']);
             // $table->enum('status', ['active', 'disable']);
             $table->char('id_staff', 40);
