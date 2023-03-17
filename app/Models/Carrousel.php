@@ -12,4 +12,11 @@ class Carrousel extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     use Uuid;
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'status',
+    ];
 }

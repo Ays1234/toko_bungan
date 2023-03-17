@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\StaffController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes API Routes create by https://github.com/yogi-maulana-dev
+| Web Routes API Routes create by situs me: https://bit.ly/yogingoding
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -26,6 +26,11 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 //staff
+/*
+|--------------------------------------------------------------------------
+| Web Routes API Routes create by site me: https://bit.ly/yogingoding
+|--------------------------------------------------------------------------
+*/
 Route::post('/add_staff/create', [StaffController::class, 'create']);
 Route::post('/update_staff/{id}', [StaffController::class, 'update']);
 Route::post('/destroy/{id}', [StaffController::class, 'destroy']);
@@ -121,9 +126,7 @@ Route::group(['prefix' => 'staff', 'as' => 'staff.'], function () {
     Route::get('/form', function () {
         return view('backend/master/staff/form');
     })->name('form')->middleware('auth');
-    // Route::get('edit/{id}', function () {
-    //     return view('backend/master/staff/edit');
-    // })->name('edit');
+  
     Route::get('edit/{id}', [StaffController::class, 'edit'])->middleware('auth');
 });
 // Category_press
@@ -135,6 +138,11 @@ Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
 
 // Content
 // Carrousel
+/*
+|--------------------------------------------------------------------------
+| Web Routes API Routes create by site me: https://bit.ly/yogingoding
+|--------------------------------------------------------------------------
+*/
 Route::group(['prefix' => 'carrousel', 'as' => 'carrousel.'], function () {
     Route::get('/', function () {
         return view('backend/content/carrousel_home/index');
