@@ -8,15 +8,8 @@ use App\Traits\Uuid;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 
-class Staff extends Model
+class Carrousel extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     use Uuid;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-
 }
