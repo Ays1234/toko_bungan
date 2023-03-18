@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Uuid;
+use Illuminate\Support\Facades\Storage;
+
+use File;
 class CarrouselController extends Controller
 {
     /**
@@ -30,14 +33,13 @@ class CarrouselController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
         $validation = Validator::make(request()->all(), [
-            'banner_image' => 'required',
-            'email' => 'required|email|unique:staff',
-            'password' => '',
-            'status' => '',
+           'name'=>'required',
+            'banner_image' => 'required|image|dimensions:max_width=1920,max_height=1080|max:3073',
+            'type_device' => '',
         ]);
 
         if ($validation->fails()) {
@@ -51,22 +53,23 @@ class CarrouselController extends Controller
                 200,
             );
         }
-        $staff = Staff::create([
-            'name' => request('name'),
-            'email' => request('email'),
-            'password' => Hash::make(request('password')),
-            'status' => request('status'),
+        if ($request->file('banner_image')) {
+            $path = $request->file('banner_image')->store('banner_image');
+        }
+        $carrousel = Carrousel::create([
+            'name'=>request('name'),
+            'banner_image' => request('banner_image'),
+            'type_device' => request('type_device'),
         ]);
 
-        if ($staff) {
+        if ($carrousel) {
             return redirect()->route('staff.index')->with(['success' => 'Data Berhasil Disimpan!']);
-        
             return response()->json(
                 [
                     'status' => true,
                     'error' => false,
                     'message' => 'success',
-                    'data' => $staff,
+                    'data' => $carrousel,
                 ],
                 200,
             );
@@ -75,7 +78,7 @@ class CarrouselController extends Controller
                 'status' => false,
                 'error' => false,
                 'message' => 'success',
-                'data' => $staff,
+                'data' => $carrousel,
             ]);
         }
     }

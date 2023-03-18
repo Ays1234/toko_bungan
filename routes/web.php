@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\CarrouselController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,16 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/add_staff/create', [StaffController::class, 'create']);
 Route::post('/update_staff/{id}', [StaffController::class, 'update']);
 Route::post('/destroy/{id}', [StaffController::class, 'destroy']);
+
+//Carrpusel
+/*
+|--------------------------------------------------------------------------
+| Web Routes API Routes create by site me: https://bit.ly/yogingoding
+|--------------------------------------------------------------------------
+*/
+Route::post('/add_carrousel/create', [CarrouselController::class, 'create']);
+Route::post('/update_carrousel/{id}', [CarrouselController::class, 'update']);
+Route::post('/destroy/{id}', [CarrouselController::class, 'destroy']);
 
 // home page
 // Route::get('/', function () {
