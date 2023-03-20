@@ -23,7 +23,6 @@ class CarrouselController extends Controller
     {
         //
         return view('backend/content/carrousel_home/index', [
-            //Buku::all() disini digunakan untuk menampilkan semua data pada Model Buku
             'carrousels' => Carrousel::all(),
         ]);
     }
@@ -127,6 +126,66 @@ class CarrouselController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validator = Validator::make(request()->all(), [
+            'name' => 'required',
+            'acronym' => 'required',
+            'code' => 'required',
+            'icon' => 'file|mimes:png,jpg',
+            'status' => 'required',
+            'createby' => 'required',
+            'updateby' => 'required',
+        ]);
+        if ($validator->fails()) {
+            // return response()->json($validator->messages());
+
+            return response()->json(
+                [
+                    'status' => false,
+                    'error' => false,
+                    'message' => 'Error',
+                    'data' => null,
+                ],
+                200,
+            );
+        }
+        $updatebank = Bank::find($id);
+        if ($request->file('icon')) {
+            if ($request->icon) {
+                Storage::delete($updatebank->icon);
+            }
+            $path = $request->file('icon')->store('icon');
+        }
+
+        $bank = $updatebank->update([
+            'name'=>request('name'),
+            'banner_image' => $path,
+            'type_device' => request('type_device'),
+            'id_staff' => auth()->user()->id,
+        ]);
+
+        if ($bank) {
+            // return response()->json(['message' => 'Pendaftaran']);
+
+            return response()->json(
+                [
+                    'status' => true,
+                    'error' => false,
+                    'message' => 'success',
+                    'data' => $bank,
+                ],
+                200,
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => false,
+                    'error' => false,
+                    'message' => 'Error',
+                    'data' => null,
+                ],
+                200,
+            );
+        }
     }
 
     /**
