@@ -70,8 +70,8 @@
                                         <div class="col-md-9">
                                             <select name="type_device" class="select2 form-control">
                                                 <option></option>
-                                                <option value="Dekstop">Dekstop</option>
-                                                <option value="Mobile">Mobile</option>
+                                                <option value="desktop">Dekstop</option>
+                                                <option value="mobile">Mobile</option>
                                             </select>
                                         </div>
                                     </div>

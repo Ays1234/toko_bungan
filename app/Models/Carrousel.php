@@ -13,8 +13,11 @@ class Carrousel extends Model
     use HasApiTokens, HasFactory, Notifiable;
     use Uuid;
 
+    protected $table='carrousel';
+
     protected $fillable = [
-        'banner',
+        'name',
+        'banner_image',
         'type_device',
         'id_staff',
         'last_login',

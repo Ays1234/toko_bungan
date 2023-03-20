@@ -21,6 +21,7 @@ class CreateCarrouselTable extends Migration
             // $table->enum('status', ['active', 'disable']);
             $table->char('id_staff', 40);
             $table->timestamp('last_login')->nullable();
+            $table->timestamps();
         });
     }
 

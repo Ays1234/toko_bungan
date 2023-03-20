@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Uuid;
 use Illuminate\Support\Facades\Storage;
-
 use File;
+
 class CarrouselController extends Controller
 {
     /**
@@ -38,7 +38,7 @@ class CarrouselController extends Controller
         //
         $validation = Validator::make(request()->all(), [
            'name'=>'required',
-            'banner_image' => 'required|image|dimensions:max_width=1920,max_height=1080|max:3073',
+            'banner_image' => 'required|image|file|dimensions:min_width=1920,min_height=1080|max:3073',
             'type_device' => '',
         ]);
 
@@ -58,12 +58,13 @@ class CarrouselController extends Controller
         }
         $carrousel = Carrousel::create([
             'name'=>request('name'),
-            'banner_image' => request('banner_image'),
+            'banner_image' => $path,
             'type_device' => request('type_device'),
+            'id_staff' => auth()->user()->id,
         ]);
 
         if ($carrousel) {
-            return redirect()->route('staff.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('carrousel.index')->with(['success' => 'Data Berhasil Disimpan!']);
             return response()->json(
                 [
                     'status' => true,
