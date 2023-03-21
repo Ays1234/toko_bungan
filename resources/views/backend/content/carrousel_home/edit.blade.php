@@ -42,7 +42,7 @@
                 </div>
                 <div class="ibox-content">
                     @foreach($id as $carrousel)
-                        <form id="submitData" action="/update_carrousel/create" method="post" style="overflow-x: none" enctype="multipart/form-data">
+                        <form id="submitData" action="/update_carrousel/{{ $carrousel->id }}" method="post" style="overflow-x: none" enctype="multipart/form-data">
                           @csrf
                             <div class="row px-2">
                                 <div class="col-sm-12">

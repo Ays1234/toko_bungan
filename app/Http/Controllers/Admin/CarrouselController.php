@@ -131,13 +131,9 @@ class CarrouselController extends Controller
     {
         //
         $validator = Validator::make(request()->all(), [
-            'name' => 'required',
-            'acronym' => 'required',
-            'code' => 'required',
-            'icon' => 'file|mimes:png,jpg',
-            'status' => 'required',
-            'createby' => 'required',
-            'updateby' => 'required',
+            'name'=>'required',
+            'banner_image' => 'required|image|file',
+            'type_device' => '',
         ]);
         if ($validator->fails()) {
             // return response()->json($validator->messages());
@@ -152,22 +148,22 @@ class CarrouselController extends Controller
                 200,
             );
         }
-        $updatebank = Bank::find($id);
-        if ($request->file('icon')) {
-            if ($request->icon) {
-                Storage::delete($updatebank->icon);
+        $updatecarrousel = Carrousel::find($id);
+        if ($request->file('banner_image')) {
+            if ($request->banner_image) {
+                Storage::delete($updatecarrousel->banner_image);
             }
-            $path = $request->file('icon')->store('icon');
+            $path = $request->file('banner_image')->store('banner_image');
         }
 
-        $bank = $updatebank->update([
+        $carrousel = $updatecarrousel->update([
             'name'=>request('name'),
             'banner_image' => $path,
             'type_device' => request('type_device'),
             'id_staff' => auth()->user()->id,
         ]);
 
-        if ($bank) {
+        if ($carrousel) {
             // return response()->json(['message' => 'Pendaftaran']);
 
             return response()->json(
@@ -175,7 +171,7 @@ class CarrouselController extends Controller
                     'status' => true,
                     'error' => false,
                     'message' => 'success',
-                    'data' => $bank,
+                    'data' => $carrousel,
                 ],
                 200,
             );
@@ -198,8 +194,37 @@ class CarrouselController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+        $deletecarrousel = Carrousel::find($id);
+        if ($deletecarrousel->banner_image) {
+            Storage::delete($deletecarrousel->banner_image);
+        }
+    $carrousel = $deletecarrousel->delete();
+
+    if ($carrousel) {
+        // return response()->json(['message' => 'Pendaftaran']);
+
+        return response()->json(
+            [
+                'status' => true,
+                'error' => false,
+                'message' => 'success',
+                'data' => $carrousel,
+            ],
+            200,
+        );
+    } else {
+        return response()->json(
+            [
+                'status' => false,
+                'error' => false,
+                'message' => 'Error',
+                'data' => null,
+            ],
+            200,
+        );
+    }
     }
 }
