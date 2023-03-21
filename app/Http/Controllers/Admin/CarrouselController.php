@@ -114,6 +114,10 @@ class CarrouselController extends Controller
     public function edit($id)
     {
         //
+        $carrousel = Carrousel::select('*')
+            ->where('id', $id)
+            ->get();
+        return view('backend/content/carrousel_home/edit', ['id' => $carrousel]);
     }
 
     /**

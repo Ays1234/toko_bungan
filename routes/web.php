@@ -155,12 +155,11 @@ Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'carrousel', 'as' => 'carrousel.'], function () {
-    Route::get('/', function () {
-        return view('backend/content/carrousel_home/index');
-    })->name('index');
+    Route::get('/', [CarrouselController::class, 'index'])->name('index')->middleware('auth');
     Route::get('/form', function () {
         return view('backend/content/carrousel_home/form');
     })->name('form');
+    Route::get('edit/{id}', [CarrouselController::class, 'edit'])->middleware('auth');
 });
 // Article
 Route::group(['prefix' => 'article', 'as' => 'article.'], function () {

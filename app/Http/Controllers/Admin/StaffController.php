@@ -20,9 +20,7 @@ class StaffController extends Controller
     public function index()
     {
         return view('backend/master/staff/index', [
-            'title' => 'Staff',
-            //Buku::all() disini digunakan untuk menampilkan semua data pada Model Buku
-            'staffs' => Staff::all(),
+         'staffs' => Staff::all(),
         ]);
     }
 

@@ -41,7 +41,8 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                        <form id="submitData" action="/add_carrousel/create" method="post" style="overflow-x: none" enctype="multipart/form-data">
+                    @foreach($id as $carrousel)
+                        <form id="submitData" action="/update_carrousel/create" method="post" style="overflow-x: none" enctype="multipart/form-data">
                           @csrf
                             <div class="row px-2">
                                 <div class="col-sm-12">
@@ -49,7 +50,7 @@
                                         <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Nama <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control py-2 b-r-md" id="nama" name="name"
-                                                value="" required>
+                                                value="{{ $carrousel->name }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -61,6 +62,10 @@
                                                 <input id="logo" type="file" name="banner_image" class="custom-file-input">
                                                 <label for="logo" class="custom-file-label">Choose file...</label>
                                             </div>
+                                            
+                                            <div class="d-block rounded">
+                                                <img src="{{ asset($carrousel->banner_image)}}" height="250" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -70,8 +75,9 @@
                                         <div class="col-md-9">
                                             <select name="type_device" class="select2 form-control">
                                                 <option></option>
-                                                <option value="desktop">Dekstop</option>
-                                                <option value="mobile">Mobile</option>
+                                                <option value="desktop" {{ $carrousel->type_device =='desktop' ? 'selected' : '' }}>Desktop</option>
+                                                <option value="mobile" {{ $carrousel->type_device =='mobile' ? 'selected' : '' }}>Mobile</option>
+                                        
                                             </select>
                                         </div>
                                     </div>
@@ -88,6 +94,7 @@
                                 </div>
                             </div>
                         </form>
+                        @endforeach
                 </div>
             </div>
         </div>

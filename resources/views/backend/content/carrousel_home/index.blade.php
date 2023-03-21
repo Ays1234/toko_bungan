@@ -51,82 +51,41 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $no = 1; @endphp
+                                @foreach ($carrousels as $carrousel)
                                 <tr>
                                     <td>1</td>
                                     <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/HOMEPAGE-1.jpg') }}" width="300px">
+                                        <img alt="..." class="d-block rounded" src="{{ asset($carrousel->banner_image) }}" width="300px">
                                     </td>
-                                    <td>Banner1</td>
-                                    <td>Dekstop</td>
+                                    <td>{{ $carrousel->name }}</td>
+                                    <td>{{ $carrousel->type_device }}</td>
                                     <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                        <div class='btn-group'>
+                                            <a href="/carrousel/edit/{{ $carrousel->id }}"><button
+                                                    class="btn btn-secondary btn-sm" type="button">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button></a>
+                                        </div>
+                                        <div class='btn-group'>
+                                            <form action="/destroy/{{ $carrousel->id }}" method="POST"> @csrf
+                                                <button type="submit" class="btn btn-dark btn-sm" type="button">
+                                                    <i class="fa fa-trash"></i>
+                                                </button></form>
+                                        </div>
+                                        <a id="select" data-toggle="modal" data-target="#modal-detail"
+                                            {{-- data-id="{{ $carrousel->id }}" --}} data-name="{{ $carrousel->name }}"
+                                            data-email="{{ $carrousel->email }}" data-status="{{ $carrousel->status }}"
+                                            class="btn btn-secondary btn-sm">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                </div>
                                         {{-- <a data-toggle="modal" href="#modal-form" class="btn btn-secondary btn-sm" type="button">
                                             <i class="fa fa-search"></i>
                                         </a> --}}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/HOMEPAGE-2.jpg') }}" width="300px">
-                                    </td>
-                                    <td>Banner2</td>
-                                    <td>Dekstop</td>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                        {{-- <a data-toggle="modal" href="#modal-form" class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-search"></i>
-                                        </a> --}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('/assets/img/crsl-mobile/HOMEPAGE_1.jpg') }}" height="300px">
-                                    </td>
-                                    <td>Banner_mobile1</td>
-                                    <td>Mobile</td>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                        {{-- <a data-toggle="modal" href="#modal-form" class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-search"></i>
-                                        </a> --}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('/assets/img/crsl-mobile/HOMEPAGE_2.jpg') }}" height="300px">
-                                    </td>
-                                    <td>Banner_mobile2</td>
-                                    <td>Mobile</td>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                        {{-- <a data-toggle="modal" href="#modal-form" class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-search"></i>
-                                        </a> --}}
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
