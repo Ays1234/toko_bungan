@@ -46,7 +46,7 @@ Route::post('/destroy/{id}', [StaffController::class, 'destroy']);
 */
 Route::post('/add_carrousel/create', [CarrouselController::class, 'create']);
 Route::post('/update_carrousel/{id}', [CarrouselController::class, 'update']);
-Route::post('/destroy/{id}', [CarrouselController::class, 'destroy']);
+Route::post('/destroy_carrousel/{id}', [CarrouselController::class, 'destroy']);
 
 //decoration_cms
 /*
@@ -56,7 +56,7 @@ Route::post('/destroy/{id}', [CarrouselController::class, 'destroy']);
 */
 Route::post('/add_decoration/create', [DecorationController::class, 'create']);
 Route::post('/update_decoration/{id}', [DecorationController::class, 'update']);
-Route::post('/destroy/{id}', [DecorationController::class, 'destroy']);
+Route::post('/destroy_decoration/{id}', [DecorationController::class, 'destroy']);
 
 //floral_cms
 /*

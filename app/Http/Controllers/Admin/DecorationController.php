@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Decoration;
@@ -9,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Uuid;
+use Illuminate\Support\Facades\Storage;
+use File;
 
 class DecorationController extends Controller
 {
@@ -127,6 +128,61 @@ class DecorationController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validator = Validator::make(request()->all(), [
+            'name'=>'required',
+            'image_decoration' => 'required|image|file',
+        ]);
+        if ($validator->fails()) {
+            // return response()->json($validator->messages());
+
+            return response()->json(
+                [
+                    'status' => false,
+                    'error' => false,
+                    'message' => 'Error',
+                    'data' => null,
+                ],
+                200,
+            );
+        }
+        $updatedecoration = Decoration::find($id);
+        if ($request->file('image_decoration')) {
+            if ($request->image_decoration) {
+                Storage::delete($updatedecoration->image_decoration);
+            }
+            $path = $request->file('image_decoration')->store('image_decoration');
+        }
+
+        $decoration = $updatedecoration->update([
+            'name'=>request('name'),
+            'image_decoration' => $path,
+            'id_staff' => auth()->user()->id,
+        ]);
+
+        if ($decoration) {
+            // return response()->json(['message' => 'Pendaftaran']);
+            return redirect()->route('decoration_cms.index')->with(['success' => 'Data Berhasil Disimpan!']);
+           
+            return response()->json(
+                [
+                    'status' => true,
+                    'error' => false,
+                    'message' => 'success',
+                    'data' => $decoration,
+                ],
+                200,
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => false,
+                    'error' => false,
+                    'message' => 'Error',
+                    'data' => null,
+                ],
+                200,
+            );
+        }
     }
 
     /**
@@ -135,8 +191,39 @@ class DecorationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         //
+         //
+         $deletedecoration = Decoration::find($id);
+         if ($deletedecoration->image_decoration) {
+             Storage::delete($deletedecoration->image_decoration);
+         }
+     $decoration = $deletedecoration->delete();
+ 
+     if ($decoration) {
+         // return response()->json(['message' => 'Pendaftaran']);
+         return redirect()->route('decoration_cms.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            
+         return response()->json(
+             [
+                 'status' => true,
+                 'error' => false,
+                 'message' => 'success',
+                 'data' => $decoration,
+             ],
+             200,
+         );
+     } else {
+         return response()->json(
+             [
+                 'status' => false,
+                 'error' => false,
+                 'message' => 'Error',
+                 'data' => null,
+             ],
+             200,
+         );
+     }
     }
 }

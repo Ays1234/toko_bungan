@@ -66,7 +66,7 @@
                                                 </button></a>
                                         </div>
                                         <div class='btn-group'>
-                                            <form action="/destroy/{{ $item->id }}" method="POST"> @csrf
+                                            <form action="/destroy_decoration/{{ $item->id }}" method="POST" enctype="multipart/form-data"> @csrf
                                                 <button type="submit" class="btn btn-dark btn-sm" type="button">
                                                     <i class="fa fa-trash"></i>
                                                 </button></form>
