@@ -20,8 +20,8 @@ class FloralController extends Controller
     public function index()
     {
         //
-        return view('backend/project/decoration/index', [
-            'decoration' => Staff::all(),
+        return view('backend/project/floral/index', [
+            'floar' => Floral::all(),
            ]);
     }
 

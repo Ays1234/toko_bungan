@@ -50,12 +50,14 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $no = 1; @endphp
+                                @foreach ($decoration as $item)
                                 <tr>
                                     <td>1</td>
                                     <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/HOMEPAGE-1.jpg') }}" width="300px">
+                                        <img alt="..." class="d-block rounded" src="{{ asset($item->banner_image) }}" width="300px">
                                     </td>
-                                    <td>Banner1</td>
+                                    <td>{{ $item->name }}</td>
                                     <td>
                                         <button class="btn btn-secondary btn-sm" type="button">
                                             <i class="fa fa-pencil"></i>
@@ -65,51 +67,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/HOMEPAGE-2.jpg') }}" width="300px">
-                                    </td>
-                                    <td>Banner2</td>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/HOMEPAGE-3.jpg') }}" width="300px">
-                                    </td>
-                                    <td>Banner3</td>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/HOMEPAGE-4.jpg') }}" width="300px">
-                                    </td>
-                                    <td>Banner4</td>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

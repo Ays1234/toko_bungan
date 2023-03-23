@@ -165,7 +165,8 @@ class CarrouselController extends Controller
 
         if ($carrousel) {
             // return response()->json(['message' => 'Pendaftaran']);
-
+            return redirect()->route('carrousel.index')->with(['success' => 'Data Berhasil Disimpan!']);
+           
             return response()->json(
                 [
                     'status' => true,
@@ -205,7 +206,8 @@ class CarrouselController extends Controller
 
     if ($carrousel) {
         // return response()->json(['message' => 'Pendaftaran']);
-
+        return redirect()->route('carrousel.index')->with(['success' => 'Data Berhasil Disimpan!']);
+           
         return response()->json(
             [
                 'status' => true,

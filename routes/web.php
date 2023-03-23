@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\CarrouselController;
+use App\Http\Controllers\Admin\DecorationController;
+use App\Http\Controllers\Admin\FloralController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,16 @@ Route::post('/destroy/{id}', [StaffController::class, 'destroy']);
 Route::post('/add_carrousel/create', [CarrouselController::class, 'create']);
 Route::post('/update_carrousel/{id}', [CarrouselController::class, 'update']);
 Route::post('/destroy/{id}', [CarrouselController::class, 'destroy']);
+
+//decoration_cms
+/*
+|--------------------------------------------------------------------------
+| Web Routes API Routes create by site me: https://bit.ly/yogingoding
+|--------------------------------------------------------------------------
+*/
+Route::post('/add_decoration/create', [DecorationController::class, 'create']);
+Route::post('/update_decoration/{id}', [DecorationController::class, 'update']);
+Route::post('/destroy/{id}', [DecorationController::class, 'destroy']);
 
 //floral_cms
 /*
@@ -183,16 +195,14 @@ Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
 
   
 Route::group(['prefix' => 'decoration_cms', 'as' => 'decoration_cms.'], function () {
-    Route::get('/', [FloralController::class, 'index'])->name('index')->middleware('auth');
+    Route::get('/', [DecorationController::class, 'index'])->name('index')->middleware('auth');
     Route::get('/form', function () {
         return view('backend/project/decoration/form');
     })->name('form');
 });
 // floral
 Route::group(['prefix' => 'floral_cms', 'as' => 'floral_cms.'], function () {
-    Route::get('/', function () {
-        return view('backend/project/floral/index');
-    })->name('index');
+    Route::get('/', [FloralController::class, 'index'])->name('index')->middleware('auth');
     Route::get('/form', function () {
         return view('backend/project/floral/form');
     })->name('form');

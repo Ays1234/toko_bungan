@@ -16,7 +16,7 @@ class CreateDecorationTable extends Migration
         Schema::create('decoration', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->string('banner_image');
+            $table->string('image_decoration');
             $table->char('id_staff', 40);
             $table->timestamp('last_login')->nullable();
             $table->timestamps();
