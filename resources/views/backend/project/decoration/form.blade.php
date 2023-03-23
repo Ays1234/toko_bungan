@@ -41,13 +41,13 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                        <form id="submitData" style="overflow-x: none">
+                        <form id="submitData" action="" method="post" style="overflow-x: none">
                             <div class="row px-2">
                                 <div class="col-sm-12">
                                     <div class="form-group row">
                                         <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Nama <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control py-2 b-r-md" id="nama" name="nama"
+                                            <input type="text" class="form-control py-2 b-r-md" id="nama" name="name"
                                                 value="" required>
                                         </div>
                                     </div>
@@ -57,7 +57,7 @@
                                         <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Photo <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
                                             <div class="custom-file">
-                                                <input id="logo" type="file" class="custom-file-input">
+                                                <input id="logo" name="banner_image" type="file" class="custom-file-input">
                                                 <label for="logo" class="custom-file-label">Choose file...</label>
                                             </div>
                                         </div>

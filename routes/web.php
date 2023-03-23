@@ -46,6 +46,16 @@ Route::post('/add_carrousel/create', [CarrouselController::class, 'create']);
 Route::post('/update_carrousel/{id}', [CarrouselController::class, 'update']);
 Route::post('/destroy/{id}', [CarrouselController::class, 'destroy']);
 
+//floral_cms
+/*
+|--------------------------------------------------------------------------
+| Web Routes API Routes create by site me: https://bit.ly/yogingoding
+|--------------------------------------------------------------------------
+*/
+Route::post('/add_floral/create', [FloralController::class, 'create']);
+Route::post('/update_floral/{id}', [FloralController::class, 'update']);
+Route::post('/destroy/{id}', [FloralController::class, 'destroy']);
+
 // home page
 // Route::get('/', function () {
 //     return view('home');
@@ -170,10 +180,10 @@ Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
 
 // Project
 // decoration
+
+  
 Route::group(['prefix' => 'decoration_cms', 'as' => 'decoration_cms.'], function () {
-    Route::get('/', function () {
-        return view('backend/project/decoration/index');
-    })->name('index');
+    Route::get('/', [FloralController::class, 'index'])->name('index')->middleware('auth');
     Route::get('/form', function () {
         return view('backend/project/decoration/form');
     })->name('form');
