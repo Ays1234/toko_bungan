@@ -30,13 +30,13 @@ class DecorationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
         $validation = Validator::make(request()->all(), [
             'name'=>'required',
-             'banner_image' => 'required|image|file|dimensions:min_width=1920,min_height=1080|max:3073',
-             'type_device' => '',
+            //  'banner_image' => 'required|image|file|dimensions:min_width=1920,min_height=1080|max:3073',
+            'image_decoration' => 'required|image|file',
          ]);
  
          if ($validation->fails()) {
@@ -50,24 +50,23 @@ class DecorationController extends Controller
                  200,
              );
          }
-         if ($request->file('banner_image')) {
-             $path = $request->file('banner_image')->store('banner_image');
+         if ($request->file('image_decoration')) {
+             $path = $request->file('image_decoration')->store('image_decoration');
          }
-         $carrousel = Carrousel::create([
+         $decoration = Decoration::create([
              'name'=>request('name'),
-             'banner_image' => $path,
-             'type_device' => request('type_device'),
+             'image_decoration' => $path,
              'id_staff' => auth()->user()->id,
          ]);
  
-         if ($carrousel) {
-             return redirect()->route('carrousel.index')->with(['success' => 'Data Berhasil Disimpan!']);
+         if ($decoration) {
+             return redirect()->route('decoration_cms.index')->with(['success' => 'Data Berhasil Disimpan!']);
              return response()->json(
                  [
                      'status' => true,
                      'error' => false,
                      'message' => 'success',
-                     'data' => $carrousel,
+                     'data' => $decoration,
                  ],
                  200,
              );
@@ -76,7 +75,7 @@ class DecorationController extends Controller
                  'status' => false,
                  'error' => false,
                  'message' => 'success',
-                 'data' => $carrousel,
+                 'data' => $decoration,
              ]);
          }
     }
@@ -112,6 +111,10 @@ class DecorationController extends Controller
     public function edit($id)
     {
         //
+        $decoration = Decoration::select('*')
+            ->where('id', $id)
+            ->get();
+        return view('backend/project/decoration/edit', ['id' => $decoration]);
     }
 
     /**

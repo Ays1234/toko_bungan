@@ -196,6 +196,7 @@ Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
   
 Route::group(['prefix' => 'decoration_cms', 'as' => 'decoration_cms.'], function () {
     Route::get('/', [DecorationController::class, 'index'])->name('index')->middleware('auth');
+    Route::get('edit/{id}', [DecorationController::class, 'edit'])->middleware('auth');
     Route::get('/form', function () {
         return view('backend/project/decoration/form');
     })->name('form');

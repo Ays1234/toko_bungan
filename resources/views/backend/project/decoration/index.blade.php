@@ -55,16 +55,22 @@
                                 <tr>
                                     <td>1</td>
                                     <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset($item->banner_image) }}" width="300px">
+                                        <img alt="..." class="d-block rounded" src="{{ asset($item->image_decoration) }}" width="300px">
                                     </td>
                                     <td>{{ $item->name }}</td>
                                     <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                        <div class='btn-group'>
+                                            <a href="/decoration_cms/edit/{{ $item->id }}"><button
+                                                    class="btn btn-secondary btn-sm" type="button">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button></a>
+                                        </div>
+                                        <div class='btn-group'>
+                                            <form action="/destroy/{{ $item->id }}" method="POST"> @csrf
+                                                <button type="submit" class="btn btn-dark btn-sm" type="button">
+                                                    <i class="fa fa-trash"></i>
+                                                </button></form>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
