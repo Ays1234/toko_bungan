@@ -50,81 +50,30 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $no = 1; @endphp
+                                @foreach ($floral as $item)
                                 <tr>
                                     <td>1</td>
                                     <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/floral-styling/FLORAL-STYLING_1.jpg') }}" width="300px">
+                                        <img alt="..." class="d-block rounded" src="{{ asset($item->image_floral) }}" width="300px">
                                     </td>
                                     <td>Photo</td>
                                     <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                        <div class='btn-group'>
+                                            <a href="/floral_cms/edit/{{ $item->id }}"><button
+                                                    class="btn btn-secondary btn-sm" type="button">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button></a>
+                                        </div>
+                                        <div class='btn-group'>
+                                            <form action="/destroy_floral/{{ $item->id }}" method="POST" enctype="multipart/form-data"> @csrf
+                                                <button type="submit" class="btn btn-dark btn-sm" type="button">
+                                                    <i class="fa fa-trash"></i>
+                                                </button></form>
+                                        </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/floral-styling/FLORAL-STYLING_2.jpg') }}" width="300px">
-                                    </td>
-                                    <td>Photo2</td>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/floral-styling/FLORAL-STYLING_3.jpg') }}" width="300px">
-                                    </td>
-                                    <td>Photo3</td>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/floral-styling/FLORAL-STYLING_4.jpg') }}" width="300px">
-                                    </td>
-                                    <td>Photo4</td>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/floral-styling/FLORAL-STYLING_5.jpg') }}" width="300px">
-                                    </td>
-                                    <td>Photo5</td>
-                                    <td>
-                                        <button class="btn btn-secondary btn-sm" type="button">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-dark btn-sm" type="button">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                               @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -189,5 +138,14 @@
             ]
         });
     });
+
+     //message with toastr
+     @if (session()->has('success'))
+
+toastr.success('{{ session('success') }}', 'BERHASIL!');
+@elseif (session()->has('error'))
+
+toastr.error('{{ session('error') }}', 'GAGAL!');
+@endif
 </script>
 @endpush

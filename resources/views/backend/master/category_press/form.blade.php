@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', 'Tambah Floral Styling')
+@section('title', 'Tambah Categoty Press')
 @section('css')
 
 @endsection
@@ -13,7 +13,7 @@
                 <a href="{{route('dashboard.index')}}">Home</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="#">Project</a>
+                <a href="#">Master</a>
             </li>
             <li class="breadcrumb-item active">
                 <strong>@yield('title')</strong>
@@ -34,22 +34,29 @@
                     </h4>
                     <div class="ibox-tools">
                         <div class="p-0 text-right">
-                            <a href="{{route('floral_cms.index')}}" class="btn btn-success b-r-xl"><i
+                            <a href="{{route('category.index')}}" class="btn btn-success b-r-xl"><i
                                     class="fa fa-arrow-left"></i>&nbsp;
                                 kembali</a>
                         </div>
                     </div>
                 </div>
                 <div class="ibox-content">
-                        <form id="submitData" style="overflow-x: none" action="/add_floral/create" method="POST" enctype="multipart/form-data">
-                           @csrf
+                        <form id="submitData" style="overflow-x: none">
                             <div class="row px-2">
                                 <div class="col-sm-12">
                                     <div class="form-group row">
-                                        <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Nama <span class="text-danger">*</span></label>
+                                        <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Judul <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control py-2 b-r-md" id="nama" name="name"
+                                            <input type="text" class="form-control py-2 b-r-md" id="nama" name="nama"
                                                 value="" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group row">
+                                        <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Deskripsi <span class="text-danger">*</span></label>
+                                        <div class="col-md-9">
+                                            <textarea class="form-control" name="desc" id="" cols="30" rows="10"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -58,17 +65,18 @@
                                         <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Photo <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
                                             <div class="custom-file">
-                                                <input id="logo" type="file" class="custom-file-input" name="image_floral">
+                                                <input id="logo" type="file" class="custom-file-input">
                                                 <label for="logo" class="custom-file-label">Choose file...</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group row d-flex justify-content-end">
                                 <div class="col-sm-4 col-sm-offset-2 d-flex justify-content-end">
-                                    <a class="btn btn-default" href="{{route('floral_cms.index')}}">Batal</a>
+                                    <a class="btn btn-default" href="{{route('category.index')}}">Batal</a>
                                     <button class="btn btn-primary mx-2" type="submit" id="simpan">
                                         <span class=""><i class="fa fa-floppy-o"></i> Simpan</span>
                                     </button>
@@ -85,9 +93,13 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
+        $(".select2").select2({
+            placeholder: "pilih device ....",
+            allowClear: true
+        });
         $('.custom-file-input').on('change', function() {
-            let fileName = $(this).val().split('\\').pop();
-            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+                let fileName = $(this).val().split('\\').pop();
+                $(this).next('.custom-file-label').addClass("selected").html(fileName);
         });
     });
 </script>

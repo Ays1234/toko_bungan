@@ -53,7 +53,7 @@
                                 @php $no = 1; @endphp
                                 @foreach ($decoration as $item)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{ $no++ }}</td>
                                     <td>
                                         <img alt="..." class="d-block rounded" src="{{ asset($item->image_decoration) }}" width="300px">
                                     </td>

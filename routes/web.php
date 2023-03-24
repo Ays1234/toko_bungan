@@ -66,7 +66,7 @@ Route::post('/destroy_decoration/{id}', [DecorationController::class, 'destroy']
 */
 Route::post('/add_floral/create', [FloralController::class, 'create']);
 Route::post('/update_floral/{id}', [FloralController::class, 'update']);
-Route::post('/destroy/{id}', [FloralController::class, 'destroy']);
+Route::post('/destroy_floral/{id}', [FloralController::class, 'destroy']);
 
 // home page
 // Route::get('/', function () {
@@ -167,6 +167,9 @@ Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
     Route::get('/', function () {
         return view('backend/master/category_press/index');
     })->name('index');
+    Route::get('/form', function () {
+        return view('backend/master/category_press/form');
+    })->name('form');
 });
 
 // Content
@@ -204,6 +207,7 @@ Route::group(['prefix' => 'decoration_cms', 'as' => 'decoration_cms.'], function
 // floral
 Route::group(['prefix' => 'floral_cms', 'as' => 'floral_cms.'], function () {
     Route::get('/', [FloralController::class, 'index'])->name('index')->middleware('auth');
+    Route::get('edit/{id}', [FloralController::class, 'edit'])->middleware('auth');
     Route::get('/form', function () {
         return view('backend/project/floral/form');
     })->name('form');

@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', 'Tambah Floral Styling')
+@section('title', 'Edit Floral Styling')
 @section('css')
 
 @endsection
@@ -41,7 +41,9 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                        <form id="submitData" style="overflow-x: none" action="/add_floral/create" method="POST" enctype="multipart/form-data">
+                    @foreach ($id as $floral )
+                        
+                        <form id="submitData" style="overflow-x: none" action="/update_floral/{{ $floral->id }}" method="POST" enctype="multipart/form-data">
                            @csrf
                             <div class="row px-2">
                                 <div class="col-sm-12">
@@ -49,7 +51,7 @@
                                         <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Nama <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control py-2 b-r-md" id="nama" name="name"
-                                                value="" required>
+                                                value="{{ $floral->name }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -61,6 +63,11 @@
                                                 <input id="logo" type="file" class="custom-file-input" name="image_floral">
                                                 <label for="logo" class="custom-file-label">Choose file...</label>
                                             </div>
+
+                                            <div class="d-block rounded">
+                                                <img src="{{ asset($floral->image_floral)}}" height="250" />
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -75,6 +82,8 @@
                                 </div>
                             </div>
                         </form>
+                        
+                    @endforeach
                 </div>
             </div>
         </div>

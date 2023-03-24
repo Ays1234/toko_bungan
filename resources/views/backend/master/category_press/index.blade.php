@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', 'Category Press ')
+@section('title', 'Categoty Press')
 @section('css')
 
 @endsection
@@ -32,14 +32,82 @@
                     <h4 class="font-weight-bold">Data @yield('title')</h4>
                     <div class="ibox-tools">
                         <div class="p-0 text-right">
-                            <a href="" class="btn btn-primary b-r-xl"><i
+                            <a href="{{route('category.form')}}" class="btn btn-primary b-r-xl"><i
                                     class="fa fa-plus-circle"></i>&nbsp;
                                 Tambah</a>
                         </div>
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <h3> Hold</h3>
+                    <div class="table-responsive m-3">
+                        <table id="table1" class="table p-3">
+                            <thead>
+                                <tr>
+                                    <th width="5%" class="align-middle">#</th>
+                                    <th class="align-middle">Photo</th>
+                                    <th class="align-middle">Judul</th>
+                                    <th class="align-middle">Deskripsi</th>
+                                    <th class="align-middle" width="5%">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <img src="{{ asset('assets/img/press/PRESS_3_Dendrobium Langka Berpenampilan Cantik/PRESS_3_Dendrobium Langka Berpenampilan Cantik_THUMBNAIL.jpg') }}" alt="profile-2" class="img-fluid" width="100%">
+                                    </td>
+                                    <td>Dekorasi Pernikahan Dengan Menggunakan Bunga Eustoma Russellianum Terbanyak</td>
+                                    <td>Vincent Luhur Flowers & Design merancang dekorasi pernikahan dengan menggunakan hanya 1 jenis bunga Import dari Vietnam, yaitu Eustoma russellianum…</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-secondary btn-sm" type="button">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-dark btn-sm" type="button">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <img src="{{ asset('assets/img/press/PRESS_4_Fungsi Optimal Desain Terbuka/PRESS_4_Fungsi Optimal Desain Terbuka_THUMBNAIL.jpg') }}" alt="profile-2" class="img-fluid" width="100%">
+                                    </td>
+                                    <td>Fungsi Optimal Desain Terbuka</td>
+                                    <td>YANG ADA BANYAK tanamannya. Begitulah cara yang paling mudah mendeskripsikan seperti apa rupa bangunan Akses Domisili.</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-secondary btn-sm" type="button">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-dark btn-sm" type="button">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <img src="{{ asset('assets/img/press/PRESS_2_Kecil-kecil Cabai Rawit/PRESS_2_Kecil-kecil Cabai Rawit_THUMBNAIL.jpg') }}" alt="profile-2" class="img-fluid" width="100%">
+                                    </td>
+                                    <td>Kecil – kecil Cabai Rawit</td>
+                                    <td>Di saat anak-anak seumuran mereka asyik berjalan-jalan ke mal dan tempat bermain Askary Nurrachmat Malik, Kevin Handoko, Vincent Caesar J.L, dan Audrey Aureli malah mengunjungi nursery.</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-secondary btn-sm" type="button">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-dark btn-sm" type="button">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,31 +120,6 @@
     $(document).ready(function(){
         table = $('#table1').DataTable({
             pageLength: 10,
-            responsive: true,
-            "searching": false,
-            dom: '<"html5buttons"B>lTfgitp',
-            buttons: [
-                // { extend: 'copy' },
-                // { extend: 'csv' },
-                // { extend: 'excel', title: 'ExampleFile' },
-                // { extend: 'pdf', title: 'ExampleFile' },
-
-                // {
-                //     extend: 'print',
-                //     customize: function (win) {
-                //         $(win.document.body).addClass('white-bg');
-                //         $(win.document.body).css('font-size', '10px');
-                //         $(win.document.thead).css('background:#1ab394', '10px');
-
-                //         $(win.document.body).find('table')
-                //             .addClass('compact')
-                //             .css('font-size', 'inherit');
-                //     }
-                // }
-            ]
-        });
-        table = $('#table_detail').DataTable({
-            paging:false,
             responsive: true,
             "searching": false,
             dom: '<"html5buttons"B>lTfgitp',

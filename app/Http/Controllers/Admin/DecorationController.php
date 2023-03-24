@@ -193,7 +193,6 @@ class DecorationController extends Controller
      */
     public function destroy(Request $request,$id)
     {
-        //
          //
          $deletedecoration = Decoration::find($id);
          if ($deletedecoration->image_decoration) {
