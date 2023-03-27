@@ -41,7 +41,10 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                        <form id="submitData" action="/add_category/create" method="post" style="overflow-x: none" enctype="multipart/form-data">
+                    @foreach ($id as $category )
+                        
+                    @endforeach
+                        <form id="submitData" action="/edit_category/{{ $item->id }}" method="post" style="overflow-x: none" enctype="multipart/form-data">
                            @csrf
                             <div class="row px-2">
                                 <div class="col-sm-12">

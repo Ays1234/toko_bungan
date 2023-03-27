@@ -42,6 +42,7 @@
                     <div class="table-responsive m-3">
                         <table id="table1" class="table p-3">
                             <thead>
+                               
                                 <tr>
                                     <th width="5%" class="align-middle">#</th>
                                     <th class="align-middle">Photo</th>
@@ -51,60 +52,31 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $no = 1; @endphp
+                                @foreach ($category as $item)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{ $no++ }}</td>
                                     <td>
-                                        <img src="{{ asset('assets/img/press/PRESS_3_Dendrobium Langka Berpenampilan Cantik/PRESS_3_Dendrobium Langka Berpenampilan Cantik_THUMBNAIL.jpg') }}" alt="profile-2" class="img-fluid" width="100%">
+                                        <img src="{{ asset($item->photo) }}" alt="profile-2" class="img-fluid" width="100%">
                                     </td>
-                                    <td>Dekorasi Pernikahan Dengan Menggunakan Bunga Eustoma Russellianum Terbanyak</td>
-                                    <td>Vincent Luhur Flowers & Design merancang dekorasi pernikahan dengan menggunakan hanya 1 jenis bunga Import dari Vietnam, yaitu Eustoma russellianum…</td>
+                                    <td>{{ $item->judul }}</td>
+                                    <td>{{ $item->deskripsi }}</td>
                                     <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-secondary btn-sm" type="button">
-                                                <i class="fa fa-pencil"></i>
-                                            </button>
-                                            <button class="btn btn-dark btn-sm" type="button">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
+                                        <div class='btn-group'>
+                                            <a href="/category/edit/{{ $item->id }}"><button
+                                                    class="btn btn-secondary btn-sm" type="button">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button></a>
+                                        </div>
+                                        <div class='btn-group'>
+                                            <form action="/category/{{ $item->id }}" method="POST" enctype="multipart/form-data"> @csrf
+                                                <button type="submit" class="btn btn-dark btn-sm" type="button">
+                                                    <i class="fa fa-trash"></i>
+                                                </button></form>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>
-                                        <img src="{{ asset('assets/img/press/PRESS_4_Fungsi Optimal Desain Terbuka/PRESS_4_Fungsi Optimal Desain Terbuka_THUMBNAIL.jpg') }}" alt="profile-2" class="img-fluid" width="100%">
-                                    </td>
-                                    <td>Fungsi Optimal Desain Terbuka</td>
-                                    <td>YANG ADA BANYAK tanamannya. Begitulah cara yang paling mudah mendeskripsikan seperti apa rupa bangunan Akses Domisili.</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-secondary btn-sm" type="button">
-                                                <i class="fa fa-pencil"></i>
-                                            </button>
-                                            <button class="btn btn-dark btn-sm" type="button">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>
-                                        <img src="{{ asset('assets/img/press/PRESS_2_Kecil-kecil Cabai Rawit/PRESS_2_Kecil-kecil Cabai Rawit_THUMBNAIL.jpg') }}" alt="profile-2" class="img-fluid" width="100%">
-                                    </td>
-                                    <td>Kecil – kecil Cabai Rawit</td>
-                                    <td>Di saat anak-anak seumuran mereka asyik berjalan-jalan ke mal dan tempat bermain Askary Nurrachmat Malik, Kevin Handoko, Vincent Caesar J.L, dan Audrey Aureli malah mengunjungi nursery.</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-secondary btn-sm" type="button">
-                                                <i class="fa fa-pencil"></i>
-                                            </button>
-                                            <button class="btn btn-dark btn-sm" type="button">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

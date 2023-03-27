@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\CarrouselController;
 use App\Http\Controllers\Admin\DecorationController;
 use App\Http\Controllers\Admin\FloralController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,16 @@ Route::post('/destroy_decoration/{id}', [DecorationController::class, 'destroy']
 Route::post('/add_floral/create', [FloralController::class, 'create']);
 Route::post('/update_floral/{id}', [FloralController::class, 'update']);
 Route::post('/destroy_floral/{id}', [FloralController::class, 'destroy']);
+
+//category
+/*
+|--------------------------------------------------------------------------
+| Web Routes API Routes create by site me: https://bit.ly/yogingoding
+|--------------------------------------------------------------------------
+*/
+Route::post('/add_category/create', [CategoryController::class, 'create']);
+Route::post('/update_category/{id}', [CategoryController::class, 'update']);
+Route::post('/destroy_category/{id}', [CategoryController::class, 'destroy']);
 
 // home page
 // Route::get('/', function () {
@@ -164,12 +175,14 @@ Route::group(['prefix' => 'staff', 'as' => 'staff.'], function () {
 });
 // Category_press
 Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
-    Route::get('/', function () {
-        return view('backend/master/category_press/index');
-    })->name('index');
+    // Route::get('/', function () {
+    //     return view('backend/master/category_press/index');
+    // })->name('index');
+    Route::get('/', [CategoryController::class, 'index'])->name('index')->middleware('auth');
     Route::get('/form', function () {
         return view('backend/master/category_press/form');
     })->name('form');
+    Route::get('edit/{id}', [CategoryController::class, 'edit'])->middleware('auth');
 });
 
 // Content
