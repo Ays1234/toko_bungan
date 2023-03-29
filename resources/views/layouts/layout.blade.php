@@ -9,8 +9,6 @@
     <link rel="icon" type="image/x-icon" href="assets/img/fav.ico">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
-	<link href="{{ asset('assets/style_layout.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/inspinia/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 
     @stack('stylesheets')
 </head>

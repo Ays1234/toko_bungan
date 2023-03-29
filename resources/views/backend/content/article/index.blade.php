@@ -50,23 +50,30 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $no = 1; @endphp
+                                @foreach ($articles as $item)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{ $no }}</td>
                                     <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/press/PRESS_4_Fungsi Optimal Desain Terbuka/PRESS_4_Fungsi Optimal Desain Terbuka_THUMBNAIL.jpg') }}" width="300px">
+                                        <img alt="..." class="d-block rounded" src="{{ asset($item->thumbnail) }}" width="300px">
                                     </td>
-                                    <td>Fungsi Optimal Desain Terbuka</td>
+                                    <td>{{ $item->judul }}</td>
                                     <td>
-                                        <div class="btn-group">
-                                            <a href="{{route('article.form')}}" class="btn btn-secondary btn-sm" type="button">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a href="" class="btn btn-dark btn-sm" type="button">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
+                                        <div class='btn-group'>
+                                            <a href="/article/edit/{{ $item->id }}"><button
+                                                    class="btn btn-secondary btn-sm" type="button">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button></a>
+                                        </div>
+                                        <div class='btn-group'>
+                                            <form action="/destroy_category/{{ $item->id }}" method="POST" enctype="multipart/form-data"> @csrf
+                                                <button type="submit" class="btn btn-dark btn-sm" type="button">
+                                                    <i class="fa fa-trash"></i>
+                                                </button></form>
                                         </div>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

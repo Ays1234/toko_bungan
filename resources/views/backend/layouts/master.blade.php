@@ -150,6 +150,8 @@
         <!-- Dual Listbox -->
         <script src="{{ asset('assets/inspinia/js/plugins/dualListbox/jquery.bootstrap-duallistbox.js') }}"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
         @stack('scripts')
     </body>
 

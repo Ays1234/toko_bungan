@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CarrouselController;
 use App\Http\Controllers\Admin\DecorationController;
 use App\Http\Controllers\Admin\FloralController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +79,16 @@ Route::post('/destroy_floral/{id}', [FloralController::class, 'destroy']);
 Route::post('/add_category/create', [CategoryController::class, 'create']);
 Route::post('/update_category/{id}', [CategoryController::class, 'update']);
 Route::post('/destroy_category/{id}', [CategoryController::class, 'destroy']);
+
+//category
+/*
+|--------------------------------------------------------------------------
+| Web Routes API Routes create by site me: https://bit.ly/yogingoding
+|--------------------------------------------------------------------------
+*/
+Route::post('/add_article/create', [ArticleController::class, 'create']);
+Route::post('/update_article/{id}', [ArticleController::class, 'update']);
+Route::post('/destroy_article/{id}', [ArticleController::class, 'destroy']);
 
 // home page
 Route::get('/', function () {
@@ -201,12 +212,11 @@ Route::group(['prefix' => 'carrousel', 'as' => 'carrousel.'], function () {
 });
 // Article
 Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
-    Route::get('/', function () {
-        return view('backend/content/article/index');
-    })->name('index');
+    Route::get('/', [ArticleController::class, 'index'])->name('index')->middleware('auth');
     Route::get('/form', function () {
         return view('backend/content/article/form');
     })->name('form');
+    Route::get('edit/{id}', [ArticleController::class, 'edit'])->middleware('auth');
 });
 
 // Project

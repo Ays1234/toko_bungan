@@ -41,13 +41,14 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                        <form id="submitData" style="overflow-x: none">
+                        <form action="/add_article/create" method="post" id="submitData" style="overflow-x: none" enctype="multipart/form-data">
+                           @csrf
                             <div class="row px-2">
                                 <div class="col-sm-12">
                                     <div class="form-group row">
                                         <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Judul <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control py-2 b-r-md" id="nama" name="nama"
+                                            <input type="text" class="form-control py-2 b-r-md" id="nama" name="judul"
                                                 value="" required>
                                         </div>
                                     </div>
@@ -57,7 +58,7 @@
                                         <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Photo Thumbnail <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
                                             <div class="custom-file">
-                                                <input id="logo" type="file" class="custom-file-input">
+                                                <input id="logo" name="thumbnail" type="file" class="custom-file-input">
                                                 <label for="logo" class="custom-file-label">Choose file...</label>
                                             </div>
                                         </div>
@@ -76,12 +77,22 @@
                                     <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Photo Banner Article <span class="text-danger">*</span></label>
                                     <div class="col-md-9">
                                         <div class="custom-file">
-                                            <input id="logo" type="file" class="custom-file-input">
+                                            <input id="logo" type="file" name="photo_banner_article" class="custom-file-input">
                                             <label for="logo" class="custom-file-label">Choose file...</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Deskripsi <span class="text-danger">*</span></label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control summernote" name="deskripsi" id="summernote" cols="150" rows="10"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <style>
                                 .title{
                                     font-size: 48px;
@@ -181,6 +192,7 @@
                                     </button>
                                 </div>
                             </div>
+
                         </form>
                 </div>
             </div>
