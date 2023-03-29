@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', 'Article')
+@section('title', 'Management Access')
 @section('css')
 
 @endsection
@@ -13,7 +13,7 @@
                 <a href="{{route('dashboard.index')}}">Home</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="#">Content</a>
+                <a href="#">Keamanan</a>
             </li>
             <li class="breadcrumb-item active">
                 <strong>@yield('title')</strong>
@@ -32,7 +32,7 @@
                     <h4 class="font-weight-bold">Data @yield('title')</h4>
                     <div class="ibox-tools">
                         <div class="p-0 text-right">
-                            <a href="{{route('article.form')}}" class="btn btn-primary b-r-xl"><i
+                            <a href="{{route('m_access.form')}}" class="btn btn-primary b-r-xl"><i
                                     class="fa fa-plus-circle"></i>&nbsp;
                                 Tambah</a>
                         </div>
@@ -44,24 +44,40 @@
                             <thead>
                                 <tr>
                                     <th width="5%" class="align-middle">#</th>
-                                    <th class="align-middle">Photo Thumbnail</th>
-                                    <th class="align-middle">Judul</th>
+                                    <th class="align-middle">Nama Access</th>
                                     <th class="align-middle">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('assets/img/press/PRESS_4_Fungsi Optimal Desain Terbuka/PRESS_4_Fungsi Optimal Desain Terbuka_THUMBNAIL.jpg') }}" width="300px">
-                                    </td>
-                                    <td>Fungsi Optimal Desain Terbuka</td>
+                                    <td>Administrator</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{route('article.form')}}" class="btn btn-secondary btn-sm" type="button">
+                                            <a href="{{route('m_access.data_user')}}" class="btn btn-secondary btn-sm" type="button">
+                                                <i class="fa fa-book"></i>
+                                            </a>
+                                            <a href="{{route('m_access.form')}}" class="btn btn-dark btn-sm" type="button">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a href="" class="btn btn-dark btn-sm" type="button">
+                                            <a href="" class="btn btn-secondary btn-sm" type="button">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Content Writer</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{route('m_access.data_user')}}" class="btn btn-secondary btn-sm" type="button">
+                                                <i class="fa fa-book"></i>
+                                            </a>
+                                            <a href="{{route('m_access.form')}}" class="btn btn-dark btn-sm" type="button">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a href="" class="btn btn-secondary btn-sm" type="button">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </div>
@@ -105,6 +121,7 @@
                 // }
             ]
         });
+
     });
 </script>
 @endpush

@@ -24,7 +24,7 @@ use App\Http\Controllers\Admin\CategoryController;
 //     return view('welcome');
 //  });
 
-Route::get('/', [AuthController::class, 'index'])->name('login')->middleware('guest');
+Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
@@ -80,9 +80,9 @@ Route::post('/update_category/{id}', [CategoryController::class, 'update']);
 Route::post('/destroy_category/{id}', [CategoryController::class, 'destroy']);
 
 // home page
-// Route::get('/', function () {
-//     return view('home');
-// })->name('home');
+Route::get('/', function () {
+    return view('home');
+})->name('home');
 
 // login
 Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
@@ -204,6 +204,9 @@ Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
     Route::get('/', function () {
         return view('backend/content/article/index');
     })->name('index');
+    Route::get('/form', function () {
+        return view('backend/content/article/form');
+    })->name('form');
 });
 
 // Project
