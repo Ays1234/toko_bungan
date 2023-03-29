@@ -69,7 +69,7 @@
                                                 </button></a>
                                         </div>
                                         <div class='btn-group'>
-                                            <form action="/category/{{ $item->id }}" method="POST" enctype="multipart/form-data"> @csrf
+                                            <form action="/destroy_category/{{ $item->id }}" method="POST" enctype="multipart/form-data"> @csrf
                                                 <button type="submit" class="btn btn-dark btn-sm" type="button">
                                                     <i class="fa fa-trash"></i>
                                                 </button></form>
@@ -116,5 +116,14 @@
             ]
         });
     });
+
+     //message with toastr
+     @if (session()->has('success'))
+
+toastr.success('{{ session('success') }}', 'BERHASIL!');
+@elseif (session()->has('error'))
+
+toastr.error('{{ session('error') }}', 'GAGAL!');
+@endif
 </script>
 @endpush

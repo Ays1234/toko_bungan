@@ -111,9 +111,18 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
         //
+        $category = Category::select('*')
+        ->where('id', $id)
+        ->get();
+    return view('backend/master/category_press/edit', ['id' => $category]);
+
+//     $category = Category::select('*')
+//     ->where('id', $id)
+//     ->get();
+// return view('backend/master/category_press/edit', ['id' => $category]);
     }
 
     /**
@@ -123,9 +132,67 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request,$id)
     {
         //
+
+        $validator = Validator::make(request()->all(), [
+            'judul'=>'required',
+             'photo' => 'required|image|file',
+             'deskripsi' => 'required',
+         ]);
+        if ($validator->fails()) {
+            // return response()->json($validator->messages());
+
+            return response()->json(
+                [
+                    'status' => false,
+                    'error' => false,
+                    'message' => 'Error',
+                    'data' => null,
+                ],
+                200,
+            );
+        }
+        $updatecategory = Category::find($id);
+        if ($request->file('photo')) {
+            if ($request->photo) {
+                Storage::delete($updatecategory->photo);
+            }
+            $path = $request->file('photo')->store('photo');
+        }
+
+        $category = $updatecategory->update([
+            'judul'=>request('judul'),
+            'photo' => $path,
+            'deskripsi' => request('deskripsi'),
+            'id_staff' => auth()->user()->id,
+        ]);
+
+        if ($category) {
+            // return response()->json(['message' => 'Pendaftaran']);
+            return redirect()->route('category.index')->with(['success' => 'Data Berhasil Disimpan!']);
+           
+            return response()->json(
+                [
+                    'status' => true,
+                    'error' => false,
+                    'message' => 'success',
+                    'data' => $category,
+                ],
+                200,
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => false,
+                    'error' => false,
+                    'message' => 'Error',
+                    'data' => null,
+                ],
+                200,
+            );
+        }
     }
 
     /**
@@ -134,8 +201,37 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request,$id)
     {
-        //
+        $deletecategory = Category::find($id);
+        if ($deletecategory->photo) {
+            Storage::delete($deletecategory->photo);
+        }
+    $category = $deletecategory->delete();
+
+    if ($category) {
+        // return response()->json(['message' => 'Pendaftaran']);
+        return redirect()->route('category.index')->with(['success' => 'Data Berhasil Disimpan!']);
+           
+        return response()->json(
+            [
+                'status' => true,
+                'error' => false,
+                'message' => 'success',
+                'data' => $category,
+            ],
+            200,
+        );
+    } else {
+        return response()->json(
+            [
+                'status' => false,
+                'error' => false,
+                'message' => 'Error',
+                'data' => null,
+            ],
+            200,
+        );
+    }
     }
 }

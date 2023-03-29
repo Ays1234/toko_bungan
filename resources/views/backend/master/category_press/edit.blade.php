@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', 'Tambah Categoty Press')
+@section('title', 'Edit Categoty Press')
 @section('css')
 
 @endsection
@@ -41,10 +41,8 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    @foreach ($id as $category )
-                        
-                    @endforeach
-                        <form id="submitData" action="/edit_category/{{ $item->id }}" method="post" style="overflow-x: none" enctype="multipart/form-data">
+                    @foreach($id as $category)
+                        <form id="submitData" action="/update_category/{{ $category->id }}" method="post" style="overflow-x: none" enctype="multipart/form-data">
                            @csrf
                             <div class="row px-2">
                                 <div class="col-sm-12">
@@ -52,7 +50,7 @@
                                         <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Judul <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control py-2 b-r-md" id="judul" name="judul"
-                                                value="" required>
+                                                value="{{ $category->judul }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +58,7 @@
                                     <div class="form-group row">
                                         <label for="decompordis" class="col-md-3 col-form-label font-weight-bold">Deskripsi <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" name="deskripsi" id="" cols="30" rows="10"></textarea>
+                                            <textarea class="form-control" name="deskripsi" id="" cols="30" rows="10">{{ $category->deskripsi }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -71,6 +69,9 @@
                                             <div class="custom-file">
                                                 <input id="logo" type="file" name="photo" class="custom-file-input">
                                                 <label for="logo" class="custom-file-label">Choose file...</label>
+                                            </div>
+                                            <div class="d-block rounded">
+                                                <img src="{{ asset($category->photo)}}" height="250" />
                                             </div>
                                         </div>
                                     </div>
@@ -87,6 +88,7 @@
                                 </div>
                             </div>
                         </form>
+                        @endforeach
                 </div>
             </div>
         </div>
