@@ -22,7 +22,7 @@
                 </div>
             </li>
             <li class="{{  request()->routeIs('dashboard.index') ? 'active' : '' }}">
-                <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Beranda</span></a>
+                <a href="{{route('dashboard.index')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Beranda</span></a>
             </li>
             <li >
                 <a href="{{ Route::currentRouteName() === 'staff.index'|| Route::currentRouteName() === 'category.index'  ? 'active' : '' }}"><i class="fa fa-th-large"></i> <span class="nav-label">Master</span>
@@ -52,7 +52,7 @@
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Keamanan</span>
                     <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="#">Management Access</a></li>
+                    <li><a href="{{route('m_access.index')}}">Management Access</a></li>
                 </ul>
             </li>
             <li>

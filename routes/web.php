@@ -238,3 +238,17 @@ Route::group(['prefix' => 'floral_cms', 'as' => 'floral_cms.'], function () {
         return view('backend/project/floral/form');
     })->name('form');
 });
+
+// Keamanan
+// management access
+Route::group(['prefix' => 'm_access', 'as' => 'm_access.'], function () {
+    Route::get('/', function () {
+        return view('backend/keamanan/management_access/index');
+    })->name('index');
+    Route::get('/form', function () {
+        return view('backend/keamanan/management_access/form');
+    })->name('form');
+    Route::get('/data_user', function () {
+        return view('backend/keamanan/management_access/data_user');
+    })->name('data_user');
+});

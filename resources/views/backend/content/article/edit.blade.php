@@ -96,6 +96,13 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                        <textarea class="form-control summernote" name="deskripsi" id="summernote" cols="150" rows="10">{{ $article->deskripsi }}</textarea>
+                                </div>
+                            </div>
+
                             <style>
                                 .title {
                                     font-size: 48px;

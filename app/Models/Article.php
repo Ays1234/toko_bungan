@@ -19,6 +19,7 @@ class Article extends Model
         'judul',
         'thumbnail',
         'photo_banner_article',
+        'deskripsi',
         'id_staff',
         'last_login',
     ];

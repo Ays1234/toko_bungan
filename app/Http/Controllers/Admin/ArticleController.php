@@ -63,6 +63,7 @@ class ArticleController extends Controller
             'judul' => request('judul'),
             'thumbnail' => $path1,
             'photo_banner_article' => $path2,
+            'deskripsi' => request('deskripsi'),
             'id_staff' => auth()->user()->id,
         ]);
 
@@ -138,9 +139,9 @@ class ArticleController extends Controller
         //
         $validator = Validator::make(request()->all(), [
             'judul' => 'required',
-            'thumbnail' => 'required|image|file',
-            'photo_banner_article' => 'required|image|file',
-            'deskripsi' => 'required',
+            'thumbnail' => 'image|file',
+            'photo_banner_article' => 'image|file',
+            'deskripsi' => '',
         ]);
         if ($validator->fails()) {
             // return response()->json($validator->messages());
@@ -159,51 +160,87 @@ class ArticleController extends Controller
         if ($request->file('thumbnail')) {
             if ($request->thumbnail) {
                 Storage::delete($updatearticle->thumbnail);
+            } //
+            if ($request->file('photo_banner_article')) {
+                if ($request->photo_banner_article) {
+                    Storage::delete($updatearticle->photo_banner_article);
+                }
+                $path1 = $request->file('thumbnail')->store('thumbnail');
+                $path2 = $request->file('photo_banner_article')->store('photo_banner_article');
+
+                $article = $updatearticle->update([
+                    'judul' => request('judul'),
+                    'thumbnail' => $path1,
+                    'photo_banner_article' => $path2,
+                    'deskripsi' => request('deskripsi'),
+                    'id_staff' => auth()->user()->id,
+                ]);
+        
+                if ($article) {
+                    // return response()->json(['message' => 'Pendaftaran']);
+                    return redirect()
+                        ->route('article.index')
+                        ->with(['success' => 'Data Berhasil Disimpan!']);
+        
+                    return response()->json(
+                        [
+                            'status' => true,
+                            'error' => false,
+                            'message' => 'success',
+                            'data' => $article,
+                        ],
+                        200,
+                    );
+                } else {
+                    return response()->json(
+                        [
+                            'status' => false,
+                            'error' => false,
+                            'message' => 'Error',
+                            'data' => null,
+                        ],
+                        200,
+                    );
+                }
+                // batas yang ada upload gambar by situs me: https://bit.ly/yogingoding
             }
-            $path1 = $request->file('thumbnail')->store('thumbnail');
-        }
-
-        if ($request->file('photo_banner_article')) {
-            if ($request->photo_banner_article) {
-                Storage::delete($updatearticle->photo_banner_article);
-            }
-            $path2 = $request->file('photo_banner_article')->store('photo_banner_article');
-        }
-
-        $article = $updatearticle->update([
-            'judul' => request('judul'),
-            'thumbnail' => $path1,
-            'photo_banner_article' => $path2,
-            'deskripsi' => request('deskripsi'),
-            'id_staff' => auth()->user()->id,
-        ]);
-
-        if ($article) {
-            // return response()->json(['message' => 'Pendaftaran']);
-            return redirect()
-                ->route('article.index')
-                ->with(['success' => 'Data Berhasil Disimpan!']);
-
-            return response()->json(
-                [
-                    'status' => true,
-                    'error' => false,
-                    'message' => 'success',
-                    'data' => $article,
-                ],
-                200,
-            );
         } else {
-            return response()->json(
-                [
-                    'status' => false,
-                    'error' => false,
-                    'message' => 'Error',
-                    'data' => null,
-                ],
-                200,
-            );
+            $article = $updatearticle->update([
+                'judul' => request('judul'),
+                'deskripsi' => request('deskripsi'),
+                'id_staff' => auth()->user()->id,
+            ]);
+
+            if ($article) {
+                // return response()->json(['message' => 'Pendaftaran']);
+                return redirect()
+                    ->route('article.index')
+                    ->with(['success' => 'Data Berhasil Disimpan!']);
+    
+                return response()->json(
+                    [
+                        'status' => true,
+                        'error' => false,
+                        'message' => 'success',
+                        'data' => $article,
+                    ],
+                    200,
+                );
+            } else {
+                return response()->json(
+                    [
+                        'status' => false,
+                        'error' => false,
+                        'message' => 'Error',
+                        'data' => null,
+                    ],
+                    200,
+                );
+            }
+            // batas yang tidak ada upload gambar by situs me: https://bit.ly/yogingoding
         }
+
+       
     }
 
     /**
