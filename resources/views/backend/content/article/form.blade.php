@@ -117,7 +117,7 @@
                                     float: left;
                                 }
                             </style>
-                            <div class="col-sm-12">
+                            {{-- <div class="col-sm-12">
                                 <div class="summernote">
                                     <div class="paragraf mb-5 px-5">
                                         <h2 class="text-center title font-weight-bold" style="font-family: 'Century Gothic', Sans-serif;">Fungsi Optimal Desain Terbuka</h2>
@@ -182,7 +182,7 @@
                                         <p>Meskipun Aksen Domisili senang berbagi pengetahuan dan pengalaman dengan para pengunjungnya. Mereka tetap berpegang teguh pada upaya melestarikan lingkungan yang ideal untuk tanaman. Caranya dengan membatasi jumlah pengunjung. Karena itu, jika Anda ingin berkunjung ke sini, apalagi bersama grup, disarankan untuk membuat janji terlebih dahulu.</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="hr-line-dashed"></div>
                             <div class="form-group row d-flex justify-content-end">
                                 <div class="col-sm-4 col-sm-offset-2 d-flex justify-content-end">

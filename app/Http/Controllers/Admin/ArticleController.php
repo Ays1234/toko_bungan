@@ -40,6 +40,7 @@ class ArticleController extends Controller
             'judul' => 'required',
             'thumbnail' => 'required|image|file',
             'photo_banner_article' => 'required|image|file',
+            'deskripsi' => 'required',
         ]);
 
         if ($validation->fails()) {
@@ -249,18 +250,21 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Request $request,$id)
     {
-        $deletecarrousel = Carrousel::find($id);
-        if ($deletecarrousel->banner_image) {
-            Storage::delete($deletecarrousel->banner_image);
+        $deletearticle = Article::find($id);
+        if ($deletearticle->thumbnail) {
+            Storage::delete($deletearticle->thumbnail);
         }
-        $carrousel = $deletecarrousel->delete();
+        if ($deletearticle->photo_banner_article) {
+            Storage::delete($deletearticle->photo_banner_article);
+        }
+        $article = $deletearticle->delete();
 
-        if ($carrousel) {
+        if ($article) {
             // return response()->json(['message' => 'Pendaftaran']);
             return redirect()
-                ->route('carrousel.index')
+                ->route('article.index')
                 ->with(['success' => 'Data Berhasil Disimpan!']);
 
             return response()->json(
@@ -268,7 +272,7 @@ class ArticleController extends Controller
                     'status' => true,
                     'error' => false,
                     'message' => 'success',
-                    'data' => $carrousel,
+                    'data' => $article,
                 ],
                 200,
             );

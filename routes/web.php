@@ -24,9 +24,9 @@ use App\Http\Controllers\Admin\ArticleController;
 // Route::get('/', function () {
 //     return view('welcome');
 //  });
-
+Route::middleware(['auth:admin'])->group(function () {
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth:admin');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
@@ -89,7 +89,7 @@ Route::post('/destroy_category/{id}', [CategoryController::class, 'destroy']);
 Route::post('/add_article/create', [ArticleController::class, 'create']);
 Route::post('/update_article/{id}', [ArticleController::class, 'update']);
 Route::post('/destroy_article/{id}', [ArticleController::class, 'destroy']);
-
+});
 // home page
 Route::get('/', function () {
     return view('home');
@@ -99,7 +99,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
     Route::get('/', function () {
         return view('backend/login/index');
-    })->name('index')->middleware('guest');
+    })->name('index');
 });
 
 // profile
@@ -169,31 +169,32 @@ Route::group(['prefix' => 'contact', 'as' => 'contact.'], function () {
 // CMS
 // dashboard
 Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+    // Route::middleware(['auth:admin'])->group(function () {
     Route::get('/', function () {
         return view('backend/dashboard/index');
-    })->name('index')->middleware('auth');
+    })->name('index')->middleware('auth:admin');
 });
 
 // Master
 // Staff
 Route::group(['prefix' => 'staff', 'as' => 'staff.'], function () {    
-    Route::get('/', [StaffController::class, 'index'])->name('index')->middleware('auth');
+    Route::get('/', [StaffController::class, 'index'])->name('index')->middleware('auth:admin');
     Route::get('/form', function () {
         return view('backend/master/staff/form');
-    })->name('form')->middleware('auth');
+    })->name('form')->middleware('auth:admin');
   
-    Route::get('edit/{id}', [StaffController::class, 'edit'])->middleware('auth');
+    Route::get('edit/{id}', [StaffController::class, 'edit'])->middleware('auth:admin');
 });
 // Category_press
 Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
     // Route::get('/', function () {
     //     return view('backend/master/category_press/index');
     // })->name('index');
-    Route::get('/', [CategoryController::class, 'index'])->name('index')->middleware('auth');
+    Route::get('/', [CategoryController::class, 'index'])->name('index')->middleware('auth:admin');
     Route::get('/form', function () {
         return view('backend/master/category_press/form');
     })->name('form');
-    Route::get('edit/{id}', [CategoryController::class, 'edit'])->middleware('auth');
+    Route::get('edit/{id}', [CategoryController::class, 'edit'])->middleware('auth:admin');
 });
 
 // Content
@@ -204,19 +205,19 @@ Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'carrousel', 'as' => 'carrousel.'], function () {
-    Route::get('/', [CarrouselController::class, 'index'])->name('index')->middleware('auth');
+    Route::get('/', [CarrouselController::class, 'index'])->name('index')->middleware('auth:admin');
     Route::get('/form', function () {
         return view('backend/content/carrousel_home/form');
     })->name('form');
-    Route::get('edit/{id}', [CarrouselController::class, 'edit'])->middleware('auth');
+    Route::get('edit/{id}', [CarrouselController::class, 'edit'])->middleware('auth:admin');
 });
 // Article
 Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
-    Route::get('/', [ArticleController::class, 'index'])->name('index')->middleware('auth');
+    Route::get('/', [ArticleController::class, 'index'])->name('index')->middleware('auth:admin');
     Route::get('/form', function () {
         return view('backend/content/article/form');
     })->name('form');
-    Route::get('edit/{id}', [ArticleController::class, 'edit'])->middleware('auth');
+    Route::get('edit/{id}', [ArticleController::class, 'edit'])->middleware('auth:admin');
 });
 
 // Project
@@ -224,16 +225,16 @@ Route::group(['prefix' => 'article', 'as' => 'article.'], function () {
 
   
 Route::group(['prefix' => 'decoration_cms', 'as' => 'decoration_cms.'], function () {
-    Route::get('/', [DecorationController::class, 'index'])->name('index')->middleware('auth');
-    Route::get('edit/{id}', [DecorationController::class, 'edit'])->middleware('auth');
+    Route::get('/', [DecorationController::class, 'index'])->name('index')->middleware('auth:admin');
+    Route::get('edit/{id}', [DecorationController::class, 'edit'])->middleware('auth:admin');
     Route::get('/form', function () {
         return view('backend/project/decoration/form');
     })->name('form');
 });
 // floral
 Route::group(['prefix' => 'floral_cms', 'as' => 'floral_cms.'], function () {
-    Route::get('/', [FloralController::class, 'index'])->name('index')->middleware('auth');
-    Route::get('edit/{id}', [FloralController::class, 'edit'])->middleware('auth');
+    Route::get('/', [FloralController::class, 'index'])->name('index')->middleware('auth:admin');
+    Route::get('edit/{id}', [FloralController::class, 'edit'])->middleware('auth:admin');
     Route::get('/form', function () {
         return view('backend/project/floral/form');
     })->name('form');
