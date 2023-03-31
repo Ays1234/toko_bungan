@@ -21,6 +21,7 @@
                     CMS
                 </div>
             </li>
+            
             <li class="{{  request()->routeIs('dashboard.index') ? 'active' : '' }}">
                 <a href="{{route('dashboard.index')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Beranda</span></a>
             </li>
