@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Uuid;
 
-
 class AuthController extends Controller
 {
     public function __construct()
@@ -97,7 +96,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $validation=$request->validate(['email' => 'required|email:dns', 'password' => 'required']);
+        // $validation=$request->validate(['email' => 'required|email:dns', 'password' => 'required']);
         // $validation = $request->validate([
         //     'email' => ['required', 'email:dns'],
         //     'password' => ['required']
@@ -107,18 +106,12 @@ class AuthController extends Controller
         // if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
         //     return redirect()->intended('/dashboard');
 
-        if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
+        if (Auth::attempt($validation)) {
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
-        } 
-else{
-    Session::flash('error', 'Email atau Password Salah');
-    return redirect('/login');
-}
-            // return back()->with('loginError', 'Login failed');
-           
-       
+        }
  
+        return back()->with('loginError', 'Login failed');
         // $user = User::where('email', $request->email)->first();
         // if (!$user || !\Hash::check($request->password, $user->password)) {
         //     return response()->json(
@@ -138,7 +131,7 @@ else{
         //     ],
         //     200,
         // );
-        
+        return redirect()->intended('/dashboard');
     }
 
     public function logout()
