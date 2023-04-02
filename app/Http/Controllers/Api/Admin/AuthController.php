@@ -96,42 +96,19 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // $validation=$request->validate(['email' => 'required|email:dns', 'password' => 'required']);
-        // $validation = $request->validate([
-        //     'email' => ['required', 'email:dns'],
-        //     'password' => ['required']
-        // ]);
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
  
-
-        // if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-        //     return redirect()->intended('/dashboard');
-
-        if (Auth::attempt($validation)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+        if(auth()->guard('admin')->attempt(['email' => $request->input('email'),  'password' => $request->input('password')])){
+            $user = auth()->guard('admin')->user();
+            if($user){
+                return redirect()->route('dashboard')->with('success','You are Logged in sucessfully.');
+            }
+        }else {
+            return back()->with('error','Whoops! invalid email and password.');
         }
- 
-        return back()->with('loginError', 'Login failed');
-        // $user = User::where('email', $request->email)->first();
-        // if (!$user || !\Hash::check($request->password, $user->password)) {
-        //     return response()->json(
-        //         [
-        //             'message' => 'ANAOUTHORIZED',
-        //         ],
-        //         401,
-        //     );
-        //     dd('gagal');
-        // }
-        // $token = $user->createToken('token-name')->plainTextToken;
-        // return response()->json(
-        //     [
-        //         'message' => 'success',
-        //         'user' => $user,
-        //         'token' => $token,
-        //     ],
-        //     200,
-        // );
-        return redirect()->intended('/dashboard');
     }
 
     public function logout()
