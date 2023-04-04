@@ -65,7 +65,7 @@ class ArticleController extends Controller
             'thumbnail' => $path1,
             'photo_banner_article' => $path2,
             'deskripsi' => request('deskripsi'),
-            'id_staff' => auth()->user()->id,
+            'id_staff' =>  auth()->guard('staff')->user()->id, 
         ]);
 
         if ($article) {
@@ -174,7 +174,7 @@ class ArticleController extends Controller
                     'thumbnail' => $path1,
                     'photo_banner_article' => $path2,
                     'deskripsi' => request('deskripsi'),
-                    'id_staff' => auth()->user()->id,
+                    'id_staff' => auth()->guard('staff')->user()->id, 
                 ]);
         
                 if ($article) {
@@ -209,7 +209,7 @@ class ArticleController extends Controller
             $article = $updatearticle->update([
                 'judul' => request('judul'),
                 'deskripsi' => request('deskripsi'),
-                'id_staff' => auth()->user()->id,
+                'id_staff' => auth()->guard('staff')->user()->id, 
             ]);
 
             if ($article) {

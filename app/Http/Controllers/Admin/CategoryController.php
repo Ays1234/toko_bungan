@@ -59,7 +59,7 @@ class CategoryController extends Controller
              'judul'=>request('judul'),
              'photo' => $path,
              'deskripsi' => request('deskripsi'),
-             'id_staff' => auth()->user()->id,
+             'id_staff' => auth()->guard('staff')->user()->id, 
          ]);
  
          if ($category) {
@@ -166,7 +166,7 @@ class CategoryController extends Controller
             'judul'=>request('judul'),
             'photo' => $path,
             'deskripsi' => request('deskripsi'),
-            'id_staff' => auth()->user()->id,
+            'id_staff' => auth()->guard('staff')->user()->id, 
         ]);
 
         if ($category) {

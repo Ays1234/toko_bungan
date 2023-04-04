@@ -57,7 +57,7 @@ class DecorationController extends Controller
          $decoration = Decoration::create([
              'name'=>request('name'),
              'image_decoration' => $path,
-             'id_staff' => auth()->user()->id,
+             'id_staff' => auth()->guard('staff')->user()->id, 
          ]);
  
          if ($decoration) {
@@ -156,7 +156,7 @@ class DecorationController extends Controller
         $decoration = $updatedecoration->update([
             'name'=>request('name'),
             'image_decoration' => $path,
-            'id_staff' => auth()->user()->id,
+            'id_staff' => auth()->guard('staff')->user()->id, 
         ]);
 
         if ($decoration) {

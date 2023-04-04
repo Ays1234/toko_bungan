@@ -17,13 +17,13 @@ class AdminAuthenticated
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('admin')->user()) {
+        if (Auth::guard('staff')->user()) {
             return $next($request);
         }
         if ($request->ajax() || $request->wantsJson()) {
             return response('Unauthorized.', 401);
         } else {
-            return redirect(route('login'));
+            return redirect('login');
         }
     }
 }

@@ -19,6 +19,8 @@ class StaffController extends Controller
      */
     public function index()
     {
+        
+        $this->middleware('adminauth');
         return view('backend/master/staff/index', [
          'staffs' => Staff::all(),
         ]);

@@ -16,10 +16,10 @@
                 <img alt="image" class="rounded-circle" src="{{ asset('assets/img/user.png') }}"  width="30px"/>
             </li>
             
-            @auth
+           
             <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle align-self-center" href="#">
-                    <span class="text-muted text-xl block">{{ auth()->user()->name }}<b class="caret"></b></span>
+                    <span class="text-muted text-xl block">{{ auth()->guard('staff')->user()->name }}<b class="caret"></b></span>
                 </a>
                 <ul class="dropdown-menu animated fadeInRight m-t-xs">
                     {{-- <li><a class="dropdown-item" href="">Profile</a></li>
@@ -29,8 +29,6 @@
                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
                 </ul>
             </li>
-               @else 
-            @endauth
         </ul>
 
     </nav>

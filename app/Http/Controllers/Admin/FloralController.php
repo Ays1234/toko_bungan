@@ -58,7 +58,7 @@ class FloralController extends Controller
          $floral = Floral::create([
              'name'=>request('name'),
              'image_floral' => $path,
-             'id_staff' => auth()->user()->id,
+             'id_staff' => auth()->guard('staff')->user()->id, 
          ]);
  
          if ($floral) {
@@ -157,7 +157,7 @@ class FloralController extends Controller
         $floral= $updatefloral->update([
             'name'=>request('name'),
             'image_floral' => $path,
-            'id_staff' => auth()->user()->id,
+            'id_staff' => auth()->guard('staff')->user()->id, 
         ]);
 
         if ($floral) {

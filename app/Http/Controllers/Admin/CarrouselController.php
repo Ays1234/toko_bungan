@@ -35,53 +35,125 @@ class CarrouselController extends Controller
     public function create(Request $request)
     {
         //
-        $validation = Validator::make(request()->all(), [
-           'name'=>'required',
-            'banner_image' => 'required|image|file|dimensions:min_width=1920,min_height=1080|max:3073',
-            'type_device' => '',
-        ]);
-
-        if ($validation->fails()) {
-            return response()->json(
-                [
-                    'status' => false,
-                    'error' => false,
-                    'message' => 'Error',
-                    'data' => null,
-                ],
-                200,
-            );
-        }
-        if ($request->file('banner_image')) {
-            $path = $request->file('banner_image')->store('banner_image');
-        }
-        $carrousel = Carrousel::create([
-            'name'=>request('name'),
-            'banner_image' => $path,
-            'type_device' => request('type_device'),
-            'id_staff' => auth()->user()->id,
-        ]);
-
-        if ($carrousel) {
-            return redirect()->route('carrousel.index')->with(['success' => 'Data Berhasil Disimpan!']);
-            return response()->json(
-                [
-                    'status' => true,
-                    'error' => false,
-                    'message' => 'success',
-                    'data' => $carrousel,
-                ],
-                200,
-            );
-        } else {
-            return response()->json([
-                'status' => false,
-                'error' => false,
-                'message' => 'success',
-                'data' => $carrousel,
+        if (request('type_device') == 'desktop') {
+            $validation = Validator::make(request()->all(), [
+                'name' => 'required',
+                'banner_image' => 'required|dimensions:min_width=1920,min_height=1080|max:3073|image|file',
+                'type_device' => '',
             ]);
+                if ($validation->fails()) {
+                    return redirect('carrousel/form')
+                    ->withErrors($validation)
+                    ->withInput();
+
+                    return response()->json(
+                        [
+                            'status' => false,
+                            'error' => false,
+                            'message' => 'Error',
+                            'data' => null,
+                        ],
+                        200,
+                    );
+                }
+                if ($request->file('banner_image')) {
+                    $path = $request->file('banner_image')->store('banner_image');
+                }
+                $carrousel = Carrousel::create([
+                    'name' => request('name'),
+                    'banner_image' => $path,
+                    'type_device' => request('type_device'),
+                    'id_staff' => auth()->guard('staff')->user()->id, 
+                ]);
+
+                if ($carrousel) {
+                    return redirect()
+                        ->route('carrousel.index')
+                        ->with(['success' => 'Data Berhasil Disimpan!']);
+                    return response()->json(
+                        [
+                            'status' => true,
+                            'error' => false,
+                            'message' => 'success',
+                            'data' => $carrousel,
+                        ],
+                        200,
+                    );
+                } else {
+                    return redirect()
+                    ->route('carrousel/form')
+                    ->with(['error' => 'Data Gagal Isimpan Disimpan!']);
+                    return response()->json([
+                        'status' => false,
+                        'error' => false,
+                        'message' => 'success',
+                        'data' => $carrousel,
+                    ]);
+                }
+            } elseif (request('type_device') == 'mobile') {
+                $validation = Validator::make(request()->all(), [
+                    'name' => 'required',
+                    'banner_image' => 'required|dimensions:max_width=492,max_height=892|max:3073|image|file',
+                    'type_device' => '',
+                ]);
+                    if ($validation->fails()) {
+                        if ($validation->fails()) {
+                            return redirect('carrousel/form')
+                            ->withErrors($validation)
+                            ->withInput();
+        
+                        return response()->json(
+                            [
+                                'status' => false,
+                                'error' => false,
+                                'message' => 'Error',
+                                'data' => null,
+                            ],
+                            200,
+                        );
+                    }
+                    if ($request->file('banner_image')) {
+                        $path = $request->file('banner_image')->store('banner_image_d');
+                    }
+                    $carrousel = Carrousel::create([
+                        'name' => request('name'),
+                        'banner_image' => $path,
+                        'type_device' => request('type_device'),
+                        'id_staff' => auth()->guard('staff')->user()->id, 
+                    ]);
+    
+                    if ($carrousel) {
+                        return redirect()
+                            ->route('carrousel.index')
+                            ->with(['success' => 'Data Berhasil Disimpan!']);
+                        return response()->json(
+                            [
+                                'status' => true,
+                                'error' => false,
+                                'message' => 'success',
+                                'data' => $carrousel,
+                            ],
+                            200,
+                        );
+                    } else {
+                        return redirect()
+                        ->route('carrousel/form')
+                        ->with(['error' => 'Data Gagal Isimpan Disimpan!']);
+                        return response()->json([
+                            'status' => false,
+                            'error' => false,
+                            'message' => 'success',
+                            'data' => $carrousel,
+                        ]);
+                    }
+            } else {
+                return redirect()
+                ->route('carrousel/index')
+                ->with(['error' => 'Data Gagal Isimpan Disimpan!']);
+            }
         }
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -131,7 +203,7 @@ class CarrouselController extends Controller
     {
         //
         $validator = Validator::make(request()->all(), [
-            'name'=>'required',
+            'name' => 'required',
             'banner_image' => 'required|image|file',
             'type_device' => '',
         ]);
@@ -157,7 +229,7 @@ class CarrouselController extends Controller
         }
 
         $carrousel = $updatecarrousel->update([
-            'name'=>request('name'),
+            'name' => request('name'),
             'banner_image' => $path,
             'type_device' => request('type_device'),
             'id_staff' => auth()->user()->id,
@@ -165,8 +237,10 @@ class CarrouselController extends Controller
 
         if ($carrousel) {
             // return response()->json(['message' => 'Pendaftaran']);
-            return redirect()->route('carrousel.index')->with(['success' => 'Data Berhasil Disimpan!']);
-           
+            return redirect()
+                ->route('carrousel.index')
+                ->with(['success' => 'Data Berhasil Disimpan!']);
+
             return response()->json(
                 [
                     'status' => true,
@@ -202,31 +276,33 @@ class CarrouselController extends Controller
         if ($deletecarrousel->banner_image) {
             Storage::delete($deletecarrousel->banner_image);
         }
-    $carrousel = $deletecarrousel->delete();
+        $carrousel = $deletecarrousel->delete();
 
-    if ($carrousel) {
-        // return response()->json(['message' => 'Pendaftaran']);
-        return redirect()->route('carrousel.index')->with(['success' => 'Data Berhasil Disimpan!']);
-           
-        return response()->json(
-            [
-                'status' => true,
-                'error' => false,
-                'message' => 'success',
-                'data' => $carrousel,
-            ],
-            200,
-        );
-    } else {
-        return response()->json(
-            [
-                'status' => false,
-                'error' => false,
-                'message' => 'Error',
-                'data' => null,
-            ],
-            200,
-        );
-    }
+        if ($carrousel) {
+            // return response()->json(['message' => 'Pendaftaran']);
+            return redirect()
+                ->route('carrousel.index')
+                ->with(['success' => 'Data Berhasil Disimpan!']);
+
+            return response()->json(
+                [
+                    'status' => true,
+                    'error' => false,
+                    'message' => 'success',
+                    'data' => $carrousel,
+                ],
+                200,
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => false,
+                    'error' => false,
+                    'message' => 'Error',
+                    'data' => null,
+                ],
+                200,
+            );
+        }
     }
 }

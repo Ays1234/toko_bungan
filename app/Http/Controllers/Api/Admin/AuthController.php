@@ -24,7 +24,6 @@ class AuthController extends Controller
     public function index()
     {
         //
-      
         return view('backend/login.index');
     }
 
@@ -101,10 +100,10 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
  
-        if(auth()->guard('admin')->attempt(['email' => $request->input('email'),  'password' => $request->input('password')])){
-            $user = auth()->guard('admin')->user();
+        if(auth()->guard('staff')->attempt(['email' => $request->input('email'),  'password' => $request->input('password')])){
+            $user = auth()->guard('staff')->user();
             if($user){
-                return redirect()->route('dashboard')->with('success','You are Logged in sucessfully.');
+                return redirect()->route('dashboard.index')->with('success','You are Logged in sucessfully.');
             }
         }else {
             return back()->with('error','Whoops! invalid email and password.');
