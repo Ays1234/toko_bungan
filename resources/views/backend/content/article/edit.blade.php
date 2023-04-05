@@ -328,7 +328,6 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('.summernote').summernote();
 
             $(".select2").select2({
                 placeholder: "pilih device ....",
@@ -341,4 +340,11 @@
             });
         });
     </script>
+
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote();
+        
+});
+</script>
 @endpush

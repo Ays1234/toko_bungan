@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Uuid;
 use Illuminate\Support\Facades\Storage;
 use File;
+use Intervention\Image\ImageManagerStatic as Image;
+use Path\To\DomDocument;
 
 class ArticleController extends Controller
 {
@@ -42,6 +44,28 @@ class ArticleController extends Controller
             'photo_banner_article' => 'required|image|file',
             'deskripsi' => 'required',
         ]);
+
+        $storage = 'storage/content';
+            $dom = new \DOMDocument();
+            libxml_use_internal_errors(true);
+            $dom->loadHTML($request->deskripsi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
+            libxml_get_errors();
+            $images = $dom->getElementsByTagName('img');
+            foreach ($images as $img) {
+                $src = $img->getAttribute('src');
+                if (preg_match('/data:image/', $src)) {
+                    preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+                    $mimetype = $groups['mime'];
+                    $fileNameContent = uniqid();
+                    $fileNameContentRand = substr(md5($fileNameContent), 6, 6) . '_' . time();
+                    $filepath=("$storage/$fileNameContentRand.$mimetype");
+                    $image=Image::make($src)->resize(1200,1200)->encode($mimetype,100)->save(public_path($filepath));
+                    $new_src=asset($filepath);
+                    $img->removeAttribute('src');
+                    $img->setAttribute('src', $new_src);
+                    $img->setAttribute('class','img-responsive');
+                }
+            }
 
         if ($validation->fails()) {
             return response()->json(
@@ -144,6 +168,30 @@ class ArticleController extends Controller
             'photo_banner_article' => 'image|file',
             'deskripsi' => '',
         ]);
+
+        $storage = 'storage/content';
+        $dom = new \DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($request->deskripsi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
+        libxml_get_errors();
+        $images = $dom->getElementsByTagName('img');
+        foreach ($images as $img) {
+            $src = $img->getAttribute('src');
+            if (preg_match('/data:image/', $src)) {
+                preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+                $mimetype = $groups['mime'];
+                $fileNameContent = uniqid();
+                $fileNameContentRand = substr(md5($fileNameContent), 6, 6) . '_' . time();
+                $filepath=("$storage/$fileNameContentRand.$mimetype");
+                $image=Image::make($src)->resize(1200,1200)->encode($mimetype,100)->save(public_path($filepath));
+                $new_src=asset($filepath);
+                $img->removeAttribute('src');
+                $img->setAttribute('src', $new_src);
+                $img->setAttribute('class','img-responsive');
+            }
+        }
+
+        
         if ($validator->fails()) {
             // return response()->json($validator->messages());
 
