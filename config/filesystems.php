@@ -66,12 +66,12 @@ return [
     |
     */
 
-    // 'links' => [
-    //     public_path('storage') => storage_path('app/public'),
-    // ],
-
     'links' => [
-        $_SERVER['DOCUMENT_ROOT'].'/storage' => storage_path('app/public'),
+        public_path('storage') => storage_path('app/public'),
     ],
+
+    // 'links' => [
+    //     $_SERVER['DOCUMENT_ROOT'].'/storage' => storage_path('app/public'),
+    // ],
 
 ];

@@ -38,19 +38,22 @@
 <section class="section-padding">
     <div class="container">
         <div class="row">
+            {{-- @foreach ($articles as $article) --}}
+            @foreach ($articles as $item)
             <div class="col-sm-6 article">
-                <img src="{{ asset('assets/img/press/PRESS_5_Dekorasi Pernikahan Dengan Menggunakan Bunga Eustoma Russellianum Terbanyak/PRESS_5_Dekorasi Pernikahan Dengan Menggunakan Bunga Eustoma Russellianum Terbanyak_THUMBNAIL.jpg') }}" alt="profile-2" class="img-fluid" width="100%">
+                <img src="{{ asset('storage/'.$item->thumbnail) }}" alt="profile-2" class="img-fluid" width="100%">
                 <div class="press">
-                    <a href="{{route('press.category')}}" id="press">
+                    <a href="press/baca/{{ $item->id }}" id="press">
                         <p class=" my-4">Press</p>
                     </a>
-                    <a href="{{route('press.article')}}" id="title">
-                        <h4 class=" fw-bold my-4">Dekorasi Pernikahan Dengan Menggunakan Bunga Eustoma Russellianum Terbanyak</h4>
+                    <a href="press/baca/{{ $item->id }}" id="title">
+                        <h4 class=" fw-bold my-4">{{ $item->judul }}</h4>
                     </a>
                     <p class="line-height">Vincent Luhur Flowers &amp; Design merancang dekorasi pernikahan dengan menggunakan hanya 1 jenis bunga Import dari Vietnam, yaitu Eustoma russellianum…</p>
                 </div>
-            </div>
-            <div class="col-sm-6 article">
+            </div> 
+            @endforeach
+            {{-- <div class="col-sm-6 article">
                 <img src="{{ asset('assets/img/press/PRESS_4_Fungsi Optimal Desain Terbuka/PRESS_4_Fungsi Optimal Desain Terbuka_THUMBNAIL.jpg') }}" alt="profile-2" class="img-fluid" width="100%">
                 <div class="press">
                     <a href="{{route('press.category')}}" id="press">
@@ -112,7 +115,7 @@
                     </a>
                     <p class="line-height">Anggrek bulan putih itu tersusun melingkar dan melayang memenuhi langit-langit sebuah ruangan hotel. Bentuk itu hendak menggambarkan imajinasi Vincent Caesar…</p>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </section>

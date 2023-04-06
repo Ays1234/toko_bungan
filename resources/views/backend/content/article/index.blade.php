@@ -55,7 +55,7 @@
                                 <tr>
                                     <td>{{ $no }}</td>
                                     <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset($item->thumbnail) }}" width="300px">
+                                        <img alt="..." class="d-block rounded" src="{{ asset('storage/'.$item->thumbnail) }}" width="300px">
                                     </td>
                                     <td>{{ $item->judul }}</td>
                                     <td>

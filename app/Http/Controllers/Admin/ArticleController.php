@@ -24,7 +24,6 @@ class ArticleController extends Controller
     public function index()
     {
         //
-
         return view('backend/content/article/index', [
             'articles' => Article::all(),
         ]);
@@ -335,5 +334,17 @@ class ArticleController extends Controller
                 200,
             );
         }
+    }
+
+    public function uploadImage(){
+        $article = new Article();
+        $article->id=0;
+        $article->exists =true;
+
+        $images = $article->addMediaFromRequest('upload')->toMediaCollection('images');
+
+        return response()->json([
+            'url'=>$images->getUrl()
+        ]);
     }
 }

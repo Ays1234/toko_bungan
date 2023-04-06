@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DecorationController;
 use App\Http\Controllers\Admin\FloralController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\User\UserArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,7 +96,7 @@ Route::post('/destroy_category/{id}', [CategoryController::class, 'destroy']);
 Route::post('/add_article/create', [ArticleController::class, 'create']);
 Route::post('/update_article/{id}', [ArticleController::class, 'update']);
 Route::post('/destroy_article/{id}', [ArticleController::class, 'destroy']);
-
+Route::post('/upload', [ArticleController::class, 'uploadImage'])->name('ckeditor.upload');
 // home page
 Route::get('/', function () {
     return view('home');
@@ -116,9 +117,9 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
 });
 // press
 Route::group(['prefix' => 'press', 'as' => 'press.'], function () {
-    Route::get('/', function () {
-        return view('frontend/press/index');
-    })->name('index');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('adminauth');
+    Route::get('/', [UserArticleController::class, 'index'])->name('index');;
+    Route::get('baca/{id}', [UserArticleController::class, 'baca']);
     Route::get('/category', function () {
         return view('frontend/press/category');
     })->name('category');
