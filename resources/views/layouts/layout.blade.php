@@ -28,6 +28,8 @@
 	<!-- All Js -->
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/super-build/ckeditor.js"></script>
+       
 
     @stack('scripts')
     <script>
@@ -37,5 +39,12 @@
             });
         })
     </script>
+
+<script>
+    ClassicEditor
+CKEDITOR.ClassicEditor.create(document.getElementById("deskripsi"), {
+} );
+</script>
+
 </body>
 </html>
