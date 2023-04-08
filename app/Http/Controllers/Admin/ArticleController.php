@@ -24,6 +24,7 @@ class ArticleController extends Controller
     public function index()
     {
         //
+
         return view('backend/content/article/index', [
             'articles' => Article::all(),
         ]);

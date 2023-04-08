@@ -47,10 +47,12 @@
                 <button aria-label="Slide 3" data-bs-slide-to="2" data-bs-target="#carouselExampleIndicators" type="button"></button>
             </div> --}}
             <div class="carousel-inner">
+                @foreach ($decorations as $decoration)
                 <div class="carousel-item active">
-                    <img alt="..." class="d-block w-100" src="{{ asset('assets/img/decoration/DECORATION-1.jpg') }}">
-                </div>
-                <div class="carousel-item">
+                    <img alt="..." class="d-block w-100" src="{{ asset('storage/'.$decoration->image_decoration) }}">
+                </div>   
+                @endforeach
+                {{-- <div class="carousel-item">
                     <img alt="..." class="d-block w-100" src="{{ asset('assets/img/decoration/DECORATION-2.jpg') }}">
                 </div>
                 <div class="carousel-item">
@@ -82,7 +84,7 @@
                 </div>
                 <div class="carousel-item">
                     <img alt="..." class="d-block w-100" src="{{ asset('assets/img/decoration/DECORATION-12.jpg') }}">
-                </div>
+                </div> --}}
             </div>
             {{-- <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselExampleIndicators" type="button">
                 <span aria-hidden="true" class="carousel-control-prev-icon"></span> <span class="visually-hidden">Previous</span>

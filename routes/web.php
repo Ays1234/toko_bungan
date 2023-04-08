@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\FloralController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\User\UserArticleController;
+use App\Http\Controllers\User\UserDecorationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -156,9 +157,10 @@ Route::group(['prefix' => 'services', 'as' => 'services.'], function () {
 });
 // decoration
 Route::group(['prefix' => 'decoration', 'as' => 'decoration.'], function () {
-    Route::get('/', function () {
-        return view('frontend/decoration/index');
-    })->name('index');
+    Route::get('/', [UserDecorationController::class, 'index'])->name('index');;
+    // Route::get('/', function () {
+    //     return view('frontend/decoration/index');
+    // })->name('index');
 });
 // floral
 Route::group(['prefix' => 'floral', 'as' => 'floral.'], function () {

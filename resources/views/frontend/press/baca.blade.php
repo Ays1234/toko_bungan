@@ -46,7 +46,8 @@
         <div class="paragraf">
             <h2 class="text-center fw-bold title">{{ $baca->judul }}</h2>
             <p class="b-font">
-                {{ strip_tags(html_entity_decode($baca->deskripsi))  }}
+                <div class="prose lg:prose-xl">{!! $baca->deskripsi !!}</div>
+                {{-- {{ ()  }} --}}
             </p>
             {{-- {{ strip_tags($baca->deskripsi) }} --}}
         </div>

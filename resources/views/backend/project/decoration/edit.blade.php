@@ -64,7 +64,7 @@
                                             </div>
 
                                             <div class="d-block rounded">
-                                                <img src="{{ asset($decoration->image_decoration)}}" height="250" />
+                                                <img src="{{ asset('storage/'.$decoration->image_decoration)}}" height="250" />
                                             </div>
 
                                         </div>
