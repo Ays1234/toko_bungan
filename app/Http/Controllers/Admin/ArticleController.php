@@ -168,29 +168,6 @@ class ArticleController extends Controller
             'photo_banner_article' => 'image|file',
             'deskripsi' => '',
         ]);
-
-        $storage = 'storage/content';
-        $dom = new \DOMDocument();
-        libxml_use_internal_errors(true);
-        $dom->loadHTML($request->deskripsi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
-        libxml_get_errors();
-        $images = $dom->getElementsByTagName('img');
-        foreach ($images as $img) {
-            $src = $img->getAttribute('src');
-            if (preg_match('/data:image/', $src)) {
-                preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
-                $mimetype = $groups['mime'];
-                $fileNameContent = uniqid();
-                $fileNameContentRand = substr(md5($fileNameContent), 6, 6) . '_' . time();
-                $filepath=("$storage/$fileNameContentRand.$mimetype");
-                $image=Image::make($src)->resize(1200,1200)->encode($mimetype,100)->save(public_path($filepath));
-                $new_src=asset($filepath);
-                $img->removeAttribute('src');
-                $img->setAttribute('src', $new_src);
-                $img->setAttribute('class','img-responsive');
-            }
-        }
-
         
         if ($validator->fails()) {
             // return response()->json($validator->messages());
@@ -338,14 +315,27 @@ class ArticleController extends Controller
     }
 
     public function uploadImage(){
-        $article = new Article();
-        $article->id=0;
-        $article->exists =true;
+        // $article = new Article();
+        // $article->id=0;
+        // $article->exists =true;
 
-        $images = $article->addMediaFromRequest('upload')->toMediaCollection('images');
+        // $images = $article->addMediaFromRequest('upload')->toMediaCollection('images');
 
-        return response()->json([
-            'url'=>$images->getUrl()
-        ]);
+        // return response()->json([
+        //     'url'=>$images->getUrl()
+        // ]);
+
+        if ($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName . '_' . time() . '.' . $extension;
+    
+            $request->file('upload')->move(public_path('media'), $fileName);
+    
+            $url = asset('media/' . $fileName);
+            return response()->json(['fileName' => $fileName, 'uploaded'=> 1, 'url' => $url]);
+        }
+        
     }
 }
