@@ -42,36 +42,52 @@
                     <div>
                         <p class="pl-3">Ubah Users : Administrator</p>
                     </div>
+                    <form action="/add_data_user/create" method="POST">
+                        @csrf
                     <div class="form-group row pl-3">
                         <label for="decompordis" class="col-md-2 col-form-label font-weight-bold ">Pilih User</label>
                         <div class="col-md-4">
-                            <select class="select2 form-control">
+                            <select name="id_user" class="select2 form-control">
                                 <option></option>
-                                <option value="Silpi">Silpi</option>
-                                <option value="Juned">Juned</option>
-                                <option value="Sifa">Sifa</option>
+                                @foreach ($positions as $position)
+                                <option value="{{ $position->id }}">{{ $position->name }}</option>
+                                @endforeach
                             </select>
                         </div>
+
+                        <div class="col-md-4">
+                            <select name="akses" class="select3 form-control">
+                                <option></option>
+                                <option value="super">Super Admin</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+
                         <div class="col-md-2">
-                            <button class="btn btn-primary btn-sm" type="button">
+                            <button class="btn btn-primary btn-sm" type="submit">
                                 <i class="fa fa-floppy-o"></i> Simpan
                             </button>
                         </div>
+                       </form>
 
                     </div>
                     <div class="table-responsive m-3">
                         <table id="table1" class="table p-3">
                             <thead>
+                          
                                 <tr>
                                     <th width="5%" class="align-middle">#</th>
                                     <th class="align-middle">Nama</th>
                                     <th class="align-middle">Aksi</th>
                                 </tr>
+                        
                             </thead>
                             <tbody>
+                                @php $no = 1; @endphp
+                                @foreach ($data_users as $data_user)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Panji</td>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $data_user->name }}</td>
                                     <td>
                                         <div class="btn-group">
                                             <button class="btn btn-secondary btn-sm" type="button">
@@ -80,17 +96,8 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Cahyono</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-secondary btn-sm" type="button">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
@@ -131,6 +138,11 @@
         });
         $(".select2").select2({
             placeholder: "pilih user ....",
+            allowClear: true
+        });
+
+        $(".select3").select2({
+            placeholder: "pilih Akses ....",
             allowClear: true
         });
 

@@ -3,7 +3,8 @@
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
-                    <img alt="..." class="logo" src="{{ asset('assets/img/logo/logo-black-mobile.png') }}" width="100%">
+                    <img alt="..." class="logo" src="{{ asset('assets/img/logo/logo-black-mobile.png') }}"
+                        width="100%">
                     {{-- <img alt="image" class="rounded-circle" src="img/profile_small.jpg" />
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="block m-t-xs font-bold">David Williams</span>
@@ -21,38 +22,40 @@
                     CMS
                 </div>
             </li>
-            <li class="{{  request()->routeIs('dashboard.index') ? 'active' : '' }}">
+            <li class="{{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
                 <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Beranda</span></a>
             </li>
-            <li >
-                <a href="{{ Route::currentRouteName() === 'staff.index'|| Route::currentRouteName() === 'category.index'  ? 'active' : '' }}"><i class="fa fa-th-large"></i> <span class="nav-label">Master</span>
+            <li>
+                <a
+                    href="{{ Route::currentRouteName() === 'staff.index' || Route::currentRouteName() === 'category.index' ? 'active' : '' }}"><i
+                        class="fa fa-th-large"></i> <span class="nav-label">Master</span>
                     <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li ><a href="{{route('staff.index')}}">Staff</a></li>
-                    <li ><a href="{{route('category.index')}}">Category Press</a></li>
+                    <li><a href="{{ route('staff.index') }}">Staff</a></li>
+                    <li><a href="{{ route('category.index') }}">Category Press</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Content</span>
                     <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="{{route('carrousel.index')}}">Carrousel Benner</a></li>
-                    <li><a href="{{route('article.index')}}">Press/Article</a></li>
+                    <li><a href="{{ route('carrousel.index') }}">Carrousel Benner</a></li>
+                    <li><a href="{{ route('article.index') }}">Press/Article</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Projects</span>
                     <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="{{route('decoration_cms.index')}}">Decoration</a></li>
-                    <li><a href="{{route('floral_cms.index')}}">Floral Styling</a></li>
+                    <li><a href="{{ route('decoration_cms.index') }}">Decoration</a></li>
+                    <li><a href="{{ route('floral_cms.index') }}">Floral Styling</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Keamanan</span>
                     <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="#">Management Access</a></li>
+                    <li><a href="{{ route('m_access.index') }}">Management Access</a></li>
                 </ul>
             </li>
             <li>

@@ -26,6 +26,7 @@ class Staff extends Authenticatable
         'email',
         'password',
         'status',
+        'akses',
     ];
 
 

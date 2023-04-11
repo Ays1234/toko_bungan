@@ -82,6 +82,20 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group row">
+                                        <label for="decompordis" class="col-md-3 col-form-label font-weight-bold ">Status Akses<span class="text-danger">*</span></label>
+                                        <div class="col-md-9">
+                                            <select name='akses' class="select2 form-control">
+                                                <option></option>
+                                                <option value="super">Super Admin</option>
+                                                <option value="admin">Admin Staff</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-sm-12">
                                     <div class="form-group row">
                                         <label for="decompordis" class="col-md-3 col-form-label font-weight-bold ">Status<span class="text-danger">*</span></label>
