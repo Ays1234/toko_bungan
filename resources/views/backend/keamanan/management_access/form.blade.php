@@ -45,21 +45,12 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <form action="" method="post" >
+                    <form action="">
                         <div class="form-group row">
-                            {{-- <label class="col-sm-2 col-form-label">Nama Role <span class="text-danger">*</span></label>
+                            <label class="col-sm-2 col-form-label">Nama Role <span class="text-danger">*</span></label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="name" name="name"
                                     value="" required>
-                            </div> --}}
-                            <label for="decompordis" class="col-md-2 col-form-label font-weight-bold ">Pilih User</label>
-                            <div class="col-md-4">
-                                <select name="id_user" class="select2 form-control">
-                                    <option></option>
-                                    @foreach ($positions as $position)
-                                    <option value="{{ $position->id }}">{{ $position->akses }}</option>
-                                    @endforeach
-                                </select>
                             </div>
                         </div>
                         <div class="form-group row">

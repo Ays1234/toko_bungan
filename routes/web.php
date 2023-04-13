@@ -11,8 +11,6 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\User\UserArticleController;
 use App\Http\Controllers\User\UserDecorationController;
-use App\Http\Controllers\Admin\DataUserController;
-use App\Http\Controllers\Admin\M_access_Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +26,10 @@ use App\Http\Controllers\Admin\M_access_Controller;
 // Route::get('/', function () {
 //     return view('welcome');
 //  });
+
+Route::get('temp-create-link', function () {
+    exec("ln -s ".escapeshellarg(storage_path('app/public')).' '.escapeshellarg(public_path('storage')));
+});
 
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('adminauth');
@@ -100,19 +102,6 @@ Route::post('/add_article/create', [ArticleController::class, 'create']);
 Route::post('/update_article/{id}', [ArticleController::class, 'update']);
 Route::post('/destroy_article/{id}', [ArticleController::class, 'destroy']);
 Route::post('/upload', [ArticleController::class, 'uploadImage'])->name('ckeditor.upload');
-
-//m_access
-/*
-|--------------------------------------------------------------------------
-| Web Routes API Routes create by site me: https://bit.ly/yogingoding
-|--------------------------------------------------------------------------
-*/
-Route::post('/add_access/create', [M_access_Controller::class, 'create']);
-Route::post('/update_access/{id}', [M_access_Controller::class, 'update']);
-Route::post('/destroy_access/{id}', [M_access_Controller::class, 'destroy']);
-
-Route::post('/add_data_user/create', [M_access_Controller::class, 'add_data_user']);
-
 // home page
 Route::get('/', function () {
     return view('home');
@@ -267,17 +256,13 @@ Route::group(['prefix' => 'floral_cms', 'as' => 'floral_cms.'], function () {
 // Keamanan
 // management access
 Route::group(['prefix' => 'm_access', 'as' => 'm_access.'], function () {
-    Route::get('/data_user', [DataUserController::class, 'index'])->name('data_user')->middleware('adminauth');
     Route::get('/', function () {
         return view('backend/keamanan/management_access/index');
     })->name('index');
-    Route::get('/form', [M_access_Controller::class, 'form'])->name('form')->middleware('adminauth');
-  
-    // Route::get('/form', function () {
-    //     return view('backend/keamanan/management_access/form');
-    // })->name('form');
-    // Route::get('/data_user', function () {
-    //     return view('backend/keamanan/management_access/data_user');
-    // })->name('data_user');
+    Route::get('/form', function () {
+        return view('backend/keamanan/management_access/form');
+    })->name('form');
+    Route::get('/data_user', function () {
+        return view('backend/keamanan/management_access/data_user');
+    })->name('data_user');
 });
-
