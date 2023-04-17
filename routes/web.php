@@ -27,6 +27,10 @@ use App\Http\Controllers\User\UserDecorationController;
 //     return view('welcome');
 //  });
 
+Route::get('temp-create-link', function () {
+    exec("ln -s ".escapeshellarg(storage_path('app/public')).' '.escapeshellarg(public_path('storage')));
+});
+
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('adminauth');
 Route::post('/login', [AuthController::class, 'login']);

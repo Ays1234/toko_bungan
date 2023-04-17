@@ -49,15 +49,26 @@ class CategoryController extends Controller
                      'message' => 'Error',
                      'data' => null,
                  ],
-                 200,
+                 200
              );
          }
-         if ($request->file('photo')) {
-             $path = $request->file('photo')->store('photo');
-         }
+        //  if ($request->file('photo')) {
+        //      $path = $request->file('photo')->store('photo');
+        //  }
+         
+           if($request->file('photo')){
+       $image = $request->file('photo');
+       $extension=$image->getClientOriginalExtension();
+       $file_name = 'File-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/');
+       $result=$image->move($destination_path,$file_name);
+       if($result){
+        //   $data['photo']=$file_name;
+  
+    
          $category = Category::create([
              'judul'=>request('judul'),
-             'photo' => $path,
+             'photo' => $file_name,
              'deskripsi' => request('deskripsi'),
              'id_staff' => auth()->guard('staff')->user()->id, 
          ]);
@@ -71,7 +82,7 @@ class CategoryController extends Controller
                      'message' => 'success',
                      'data' => $category,
                  ],
-                 200,
+                 200
              );
          } else {
              return response()->json([
@@ -81,6 +92,10 @@ class CategoryController extends Controller
                  'data' => $category,
              ]);
          }
+         //
+         
+       }
+    }
     }
 
     /**
