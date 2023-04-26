@@ -59,8 +59,8 @@ class CategoryController extends Controller
            if($request->file('photo')){
        $image = $request->file('photo');
        $extension=$image->getClientOriginalExtension();
-       $file_name = 'File-'.date('Y-m-d-h-i-s').'.'.$extension;
-       $destination_path = public_path('/core/uploads/');
+       $file_name = 'File-category-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/category/');
        $result=$image->move($destination_path,$file_name);
        if($result){
         //   $data['photo']=$file_name;
@@ -166,20 +166,31 @@ class CategoryController extends Controller
                     'message' => 'Error',
                     'data' => null,
                 ],
-                200,
+                200
             );
         }
         $updatecategory = Category::find($id);
+         $path = public_path().'/core/uploads/category/';
+
         if ($request->file('photo')) {
             if ($request->photo) {
-                Storage::delete($updatecategory->photo);
+                // File::delete('/core/uploads/'.$updatecategory->photo);
+                $file_old = $path.$updatecategory->photo;
+                 unlink($file_old);
             }
-            $path = $request->file('photo')->store('photo');
+       $image = $request->file('photo');
+       $extension=$image->getClientOriginalExtension();
+       $file_name = 'File-category-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/category/');
+       $result=$image->move($destination_path,$file_name);
+       if($result){
+        //   $data['photo']=$file_name;
+            
         }
 
         $category = $updatecategory->update([
             'judul'=>request('judul'),
-            'photo' => $path,
+            'photo' => $file_name,
             'deskripsi' => request('deskripsi'),
             'id_staff' => auth()->guard('staff')->user()->id, 
         ]);
@@ -195,7 +206,7 @@ class CategoryController extends Controller
                     'message' => 'success',
                     'data' => $category,
                 ],
-                200,
+                200
             );
         } else {
             return response()->json(
@@ -205,8 +216,10 @@ class CategoryController extends Controller
                     'message' => 'Error',
                     'data' => null,
                 ],
-                200,
+                200
             );
+        }
+        //
         }
     }
 
@@ -218,9 +231,12 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request,$id)
     {
+        
         $deletecategory = Category::find($id);
+         $path = public_path().'/core/uploads/category/';
         if ($deletecategory->photo) {
-            Storage::delete($deletecategory->photo);
+           $file_old = $path.$deletecategory->photo;
+                 unlink($file_old);
         }
     $category = $deletecategory->delete();
 
@@ -235,7 +251,7 @@ class CategoryController extends Controller
                 'message' => 'success',
                 'data' => $category,
             ],
-            200,
+            200
         );
     } else {
         return response()->json(
@@ -245,7 +261,7 @@ class CategoryController extends Controller
                 'message' => 'Error',
                 'data' => null,
             ],
-            200,
+            200
         );
     }
     }

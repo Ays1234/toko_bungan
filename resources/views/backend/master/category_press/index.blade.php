@@ -57,7 +57,7 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td> 
-                                        <img src="{{ asset('public/core/uploads/'.$item->photo) }}" alt="profile-2" class="img-fluid" width="100%">
+                                        <img src="{{ asset('public/core/uploads/category/'.$item->photo) }}" alt="profile-2" class="img-fluid" width="100%">
                                     </td>
                                     <td>{{ $item->judul }}</td>
                                     <td>{{ $item->deskripsi }}</td>

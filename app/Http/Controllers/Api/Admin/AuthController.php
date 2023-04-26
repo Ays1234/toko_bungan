@@ -99,18 +99,10 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
-        // if (auth()->user()->type == 'admin') {
-        //     return redirect()->route('admin.home');
-        // }else if (auth()->user()->type == 'manager') {
-        //     return redirect()->route('manager.home');
-        // }else{
-        //     return redirect()->route('home');
-        // }
  
         if(auth()->guard('staff')->attempt(['email' => $request->input('email'),  'password' => $request->input('password')])){
             $user = auth()->guard('staff')->user();
-            if($user->type == 'admin'){
+            if($user){
                 return redirect()->route('dashboard.index')->with('success','You are Logged in sucessfully.');
             }
         }else {

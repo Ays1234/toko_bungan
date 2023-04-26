@@ -56,15 +56,25 @@ class CarrouselController extends Controller
                         'message' => 'Error',
                         'data' => null,
                     ],
-                    200,
+                    200
                 );
             }
-            if ($request->file('banner_image')) {
-                $path = $request->file('banner_image')->store('banner_image');
-            }
+            // if ($request->file('banner_image')) {
+            //     $path = $request->file('banner_image')->store('banner_image');
+            // }
+            
+            if($request->file('banner_image')){
+       $image = $request->file('banner_image');
+       $extension=$image->getClientOriginalExtension();
+       $file_name = 'File-banner_image-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/banner_image/');
+       $result=$image->move($destination_path,$file_name);
+       if($result){
+        //   $data['photo']=$file_name;
+        
             $carrousel = Carrousel::create([
                 'name' => request('name'),
-                'banner_image' => $path,
+                'banner_image' => $file_name,
                 'type_device' => request('type_device'),
                 'id_staff' => auth()
                     ->guard('staff')
@@ -82,7 +92,7 @@ class CarrouselController extends Controller
                         'message' => 'success',
                         'data' => $carrousel,
                     ],
-                    200,
+                    200
                 );
             } else {
                 return redirect()
@@ -95,13 +105,18 @@ class CarrouselController extends Controller
                     'data' => $carrousel,
                 ]);
             }
+            //
+            
+       }
+            }
+            //
         } elseif (request('type_device') == 'mobile') {
             $validation = Validator::make(request()->all(), [
                 'name' => 'required',
-                'banner_image' => 'required|dimensions:max_width=492,max_height=892|max:3073|image|file',
+                'banner_image' => 'required|dimensions:max_width=426,max_height=893|max:3073|image|file',
                 'type_device' => '',
             ]);
-            if ($validation->fails()) {
+          
                 if ($validation->fails()) {
                     return redirect('carrousel/form')
                         ->withErrors($validation)
@@ -114,20 +129,26 @@ class CarrouselController extends Controller
                             'message' => 'Error',
                             'data' => null,
                         ],
-                        200,
+                        200
                     );
                 }
-                if ($request->file('banner_image')) {
-                    $path = $request->file('banner_image')->store('banner_image_d');
-                }
-                $carrousel = Carrousel::create([
-                    'name' => request('name'),
-                    'banner_image' => $path,
-                    'type_device' => request('type_device'),
-                    'id_staff' => auth()
-                        ->guard('staff')
-                        ->user()->id,
-                ]);
+           
+           if($request->file('banner_image')){
+       $image = $request->file('banner_image');
+       $extension=$image->getClientOriginalExtension();
+       $file_name = 'File-banner_image-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/banner_image/');
+       $result=$image->move($destination_path,$file_name);
+       if($result){
+           
+                     $carrousel = Carrousel::create([
+                'name' => request('name'),
+                'banner_image' => $file_name,
+                'type_device' => request('type_device'),
+                'id_staff' => auth()
+                    ->guard('staff')
+                    ->user()->id,
+            ]);
 
                 if ($carrousel) {
                     return redirect()
@@ -140,8 +161,11 @@ class CarrouselController extends Controller
                             'message' => 'success',
                             'data' => $carrousel,
                         ],
-                        200,
+                        200
                     );
+                    
+      
+           
                 } else {
                     return redirect()
                         ->route('carrousel/form')
@@ -153,12 +177,19 @@ class CarrouselController extends Controller
                         'data' => $carrousel,
                     ]);
                 }
+                
+                                      //
+       }
+           }
+           //
+            
+        
             } else {
                 return redirect()
-                    ->route('carrousel/index')
+                    ->route('carrousel.index')
                     ->with(['error' => 'Data Gagal Isimpan Disimpan!']);
             }
-        }
+        
     }
 
     /**
@@ -208,6 +239,8 @@ class CarrouselController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $ids=$id;
+         if (request('type_device') == 'desktop') {
         $validator = Validator::make(request()->all(), [
             'name' => 'required',
             'banner_image' => 'required|image|file',
@@ -223,20 +256,28 @@ class CarrouselController extends Controller
                     'message' => 'Error',
                     'data' => null,
                 ],
-                200,
+                200
             );
         }
         $updatecarrousel = Carrousel::find($id);
+         $path = public_path().'/core/uploads/banner_image/';
         if ($request->file('banner_image')) {
             if ($request->banner_image) {
-                Storage::delete($updatecarrousel->banner_image);
+                 $file_old = $path.$updatecarrousel->banner_image;
+                 unlink($file_old);
             }
-            $path = $request->file('banner_image')->store('banner_image');
-        }
-
+            
+         $image = $request->file('banner_image');
+       $extension=$image->getClientOriginalExtension();
+       $file_name = 'File-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/banner_image/');
+       $result=$image->move($destination_path,$file_name);
+       if($result){
+        //   $data['photo']=$file_name;
+            
         $carrousel = $updatecarrousel->update([
             'name' => request('name'),
-            'banner_image' => $path,
+            'banner_image' => $file_name,
             'type_device' => request('type_device'),
             'id_staff' => auth()
                     ->guard('staff')
@@ -256,7 +297,7 @@ class CarrouselController extends Controller
                     'message' => 'success',
                     'data' => $carrousel,
                 ],
-                200,
+                200
             );
         } else {
             return response()->json(
@@ -266,9 +307,109 @@ class CarrouselController extends Controller
                     'message' => 'Error',
                     'data' => null,
                 ],
-                200,
+                200
             );
         }
+           //
+        }
+       }
+            //
+           
+        } elseif (request('type_device') == 'mobile') {
+            $validation = Validator::make(request()->all(), [
+                'name' => 'required',
+                'banner_image' => 'required|dimensions:max_width=426,max_height=893|max:3073|image|file',
+                'type_device' => '',
+            ]);
+          
+          
+                if ($validation->fails()) {
+                    // return redirect('carrousel/edit/$id')
+                    //     ->withErrors($validation)
+                    //     ->withInput();
+                         return redirect()
+                ->back()
+                ->withInput()
+               ->withErrors($validation);
+
+                    return response()->json(
+                        [
+                            'status' => false,
+                            'error' => false,
+                            'message' => 'Error',
+                            'data' => null,
+                        ],
+                        200
+                    );
+                }
+           
+       $updatecarrousel = Carrousel::find($id);
+         $path = public_path().'/core/uploads/banner_image/';
+        if ($request->file('banner_image')) {
+            if ($request->banner_image) {
+                 $file_old = $path.$updatecarrousel->banner_image;
+                 unlink($file_old);
+            }
+            
+         $image = $request->file('banner_image');
+       $extension=$image->getClientOriginalExtension();
+       $file_name = 'File-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/banner_image/');
+       $result=$image->move($destination_path,$file_name);
+       if($result){
+        //   $data['photo']=$file_name;
+            
+        $carrousel = $updatecarrousel->update([
+            'name' => request('name'),
+            'banner_image' => $file_name,
+            'type_device' => request('type_device'),
+            'id_staff' => auth()
+                    ->guard('staff')
+                    ->user()->id,
+        ]);
+
+
+                if ($carrousel) {
+                    return redirect()
+                        ->route('carrousel.index')
+                        ->with(['success' => 'Data Berhasil Disimpan!']);
+                    return response()->json(
+                        [
+                            'status' => true,
+                            'error' => false,
+                            'message' => 'success',
+                            'data' => $carrousel,
+                        ],
+                        200
+                    );
+                    
+      
+           
+                } else {
+                    return redirect()
+                ->back()
+                ->withInput()
+               ->withErrors($validation);
+                    return response()->json([
+                        'status' => false,
+                        'error' => false,
+                        'message' => 'success',
+                        'data' => $carrousel,
+                    ]);
+                }
+                
+                                      //
+       }
+           }
+           //
+            
+        
+            } else {
+                return redirect()
+                    ->route('carrousel.index')
+                    ->with(['error' => 'Data Gagal Isimpan Disimpan!']);
+            }
+           
     }
 
     /**
@@ -281,9 +422,13 @@ class CarrouselController extends Controller
     {
         //
         $deletecarrousel = Carrousel::find($id);
+        
+            $path = public_path().'/core/uploads/banner_image/';
         if ($deletecarrousel->banner_image) {
-            Storage::delete($deletecarrousel->banner_image);
+           $file_old = $path.$deletecarrousel->banner_image;
+                 unlink($file_old);
         }
+        
         $carrousel = $deletecarrousel->delete();
 
         if ($carrousel) {
@@ -299,7 +444,7 @@ class CarrouselController extends Controller
                     'message' => 'success',
                     'data' => $carrousel,
                 ],
-                200,
+                200
             );
         } else {
             return response()->json(
@@ -309,7 +454,7 @@ class CarrouselController extends Controller
                     'message' => 'Error',
                     'data' => null,
                 ],
-                200,
+                200
             );
         }
     }

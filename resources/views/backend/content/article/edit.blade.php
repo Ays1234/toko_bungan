@@ -67,7 +67,7 @@
                                                 <label for="logo" class="custom-file-label">Choose file...</label>
                                             </div>
                                             <div class="d-block rounded">
-                                                <img src="{{ asset('storage/'.$article->thumbnail) }}" height="250" />
+                                                <img src="{{ asset('public/core/uploads/thumbnail/'.$article->thumbnail) }}" height="250" />
                                             </div>
                                         </div>
                                     </div>
@@ -91,7 +91,7 @@
                                             <label for="logo" class="custom-file-label">Choose file...</label>
                                         </div>
                                         <div class="d-block rounded">
-                                            <img src="{{ asset('storage/'.$article->photo_banner_article) }}" height="250" />
+                                            <img src="{{ asset('public/core/uploads/photo_banner_article/'.$article->photo_banner_article) }}" height="250" />
                                         </div>
                                     </div>
                                 </div>

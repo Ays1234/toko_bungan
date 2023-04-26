@@ -65,7 +65,7 @@
                                             </div>
 
                                             <div class="d-block rounded">
-                                                <img src="{{ asset($floral->image_floral)}}" height="250" />
+                                                <img src="{{ asset('public/core/uploads/image_floral/'.$floral->image_floral)}}" height="250" />
                                             </div>
 
                                         </div>

@@ -48,15 +48,23 @@ class DecorationController extends Controller
                      'message' => 'Error',
                      'data' => null,
                  ],
-                 200,
+                 200
              );
          }
-         if ($request->file('image_decoration')) {
-             $path = $request->file('image_decoration')->store('image_decoration');
-         }
+        //  if ($request->file('image_decoration')) {
+        //      $path = $request->file('image_decoration')->store('image_decoration');
+        //  }
+         
+         if($request->file('image_decoration')){
+       $image = $request->file('image_decoration');
+       $extension=$image->getClientOriginalExtension();
+       $file_name = 'File-image_decoration-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/image_decoration/');
+       $result=$image->move($destination_path,$file_name);
+       
          $decoration = Decoration::create([
              'name'=>request('name'),
-             'image_decoration' => $path,
+             'image_decoration' => $file_name,
              'id_staff' => auth()->guard('staff')->user()->id, 
          ]);
  
@@ -69,7 +77,7 @@ class DecorationController extends Controller
                      'message' => 'success',
                      'data' => $decoration,
                  ],
-                 200,
+                 200
              );
          } else {
              return response()->json([
@@ -79,6 +87,7 @@ class DecorationController extends Controller
                  'data' => $decoration,
              ]);
          }
+    }
     }
 
     /**
@@ -142,20 +151,28 @@ class DecorationController extends Controller
                     'message' => 'Error',
                     'data' => null,
                 ],
-                200,
+                200
             );
         }
         $updatedecoration = Decoration::find($id);
+         $path = public_path().'/core/uploads/image_decoration/';
         if ($request->file('image_decoration')) {
             if ($request->image_decoration) {
-                Storage::delete($updatedecoration->image_decoration);
+                 $file_old = $path.$updatedecoration->image_decoration;
+                 unlink($file_old);
             }
-            $path = $request->file('image_decoration')->store('image_decoration');
+           
         }
+        
+          $image = $request->file('image_decoration');
+       $extension=$image->getClientOriginalExtension();
+       $file_name = 'File-image_decoration-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/image_decoration/');
+       $result=$image->move($destination_path,$file_name);
 
         $decoration = $updatedecoration->update([
             'name'=>request('name'),
-            'image_decoration' => $path,
+            'image_decoration' => $file_name,
             'id_staff' => auth()->guard('staff')->user()->id, 
         ]);
 
@@ -170,7 +187,7 @@ class DecorationController extends Controller
                     'message' => 'success',
                     'data' => $decoration,
                 ],
-                200,
+                200
             );
         } else {
             return response()->json(
@@ -180,7 +197,7 @@ class DecorationController extends Controller
                     'message' => 'Error',
                     'data' => null,
                 ],
-                200,
+                200
             );
         }
     }
@@ -195,8 +212,10 @@ class DecorationController extends Controller
     {
          //
          $deletedecoration = Decoration::find($id);
+          $path = public_path().'/core/uploads/image_decoration/';
          if ($deletedecoration->image_decoration) {
-             Storage::delete($deletedecoration->image_decoration);
+             $file_old = $path.$deletedecoration->image_decoration;
+                 unlink($file_old);
          }
      $decoration = $deletedecoration->delete();
  

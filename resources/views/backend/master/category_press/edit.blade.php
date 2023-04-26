@@ -71,7 +71,7 @@
                                                 <label for="logo" class="custom-file-label">Choose file...</label>
                                             </div>
                                             <div class="d-block rounded">
-                                                <img src="{{ asset($category->photo)}}" height="250" />
+                                                <img src="{{ asset('public/core/uploads/category/'.$category->photo) }}" height="250" />
                                             </div>
                                         </div>
                                     </div>

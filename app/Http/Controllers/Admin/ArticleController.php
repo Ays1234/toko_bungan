@@ -45,6 +45,8 @@ class ArticleController extends Controller
             'deskripsi' => 'required',
         ]);
 
+    
+
         if ($validation->fails()) {
             return response()->json(
                 [
@@ -53,19 +55,34 @@ class ArticleController extends Controller
                     'message' => 'Error',
                     'data' => null,
                 ],
-                200,
+                200
             );
         }
-        if ($request->file('thumbnail')) {
-            $path1 = $request->file('thumbnail')->store('thumbnail');
+     
+        
+        if($request->file('thumbnail')){
+       $image = $request->file('thumbnail');
+       $extension=$image->getClientOriginalExtension();
+       $file_name = 'File-thumbnail-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/thumbnail/');
+       $result=$image->move($destination_path,$file_name);
         }
-        if ($request->file('photo_banner_article')) {
-            $path2 = $request->file('photo_banner_article')->store('photo_banner_article');
-        }
+    
+    //
+    
+          if($request->file('photo_banner_article')){
+       $images = $request->file('photo_banner_article');
+       $extensions=$images->getClientOriginalExtension();
+       $file_names = 'File-photo_banner_article-'.date('Y-m-d-h-i-s').'.'.$extensions;
+       $destination_paths = public_path('/core/uploads/photo_banner_article/');
+       $results=$images->move($destination_paths,$file_names);
+}
+    //
+           
         $article = Article::create([
             'judul' => request('judul'),
-            'thumbnail' => $path1,
-            'photo_banner_article' => $path2,
+            'thumbnail' => $file_name,
+            'photo_banner_article' => $file_names,
             'deskripsi' => request('deskripsi'),
             'id_staff' =>  auth()->guard('staff')->user()->id, 
         ]);
@@ -81,7 +98,7 @@ class ArticleController extends Controller
                     'message' => 'success',
                     'data' => $article,
                 ],
-                200,
+                200
             );
         } else {
             return response()->json([
@@ -92,6 +109,10 @@ class ArticleController extends Controller
             ]);
         }
     }
+          
+    
+    
+    //
 
     /**
      * Store a newly created resource in storage.
@@ -157,25 +178,50 @@ class ArticleController extends Controller
                     'message' => 'Error',
                     'data' => null,
                 ],
-                200,
+                200
             );
         }
         $updatearticle = Article::find($id);
+         $path = public_path().'/core/uploads/thumbnail/';
+          $paths = public_path().'/core/uploads/photo_banner_article/';
+          
         if ($request->file('thumbnail')) {
             if ($request->thumbnail) {
-                Storage::delete($updatearticle->thumbnail);
+                $file_old = $path.$updatearticle->thumbnail;
+                 unlink($file_old);
             } //
+            
+             if($request->file('thumbnail')){
+       $image = $request->file('thumbnail');
+       $extension=$image->getClientOriginalExtension();
+       $file_name = 'File-thumbnail-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/thumbnail/');
+       $result=$image->move($destination_path,$file_name);
+        }
+    
+    //
+    
+          
             if ($request->file('photo_banner_article')) {
                 if ($request->photo_banner_article) {
-                    Storage::delete($updatearticle->photo_banner_article);
+                    $file_olds = $paths.$updatearticle->photo_banner_article;
+                 unlink($file_olds);
                 }
-                $path1 = $request->file('thumbnail')->store('thumbnail');
-                $path2 = $request->file('photo_banner_article')->store('photo_banner_article');
+                
+                if($request->file('photo_banner_article')){
+       $images = $request->file('photo_banner_article');
+       $extensions=$images->getClientOriginalExtension();
+       $file_names = 'File-photo_banner_article-'.date('Y-m-d-h-i-s').'.'.$extensions;
+       $destination_paths = public_path('/core/uploads/photo_banner_article/');
+       $results=$images->move($destination_paths,$file_names);
+}
+    //
+    
 
                 $article = $updatearticle->update([
                     'judul' => request('judul'),
-                    'thumbnail' => $path1,
-                    'photo_banner_article' => $path2,
+                    'thumbnail' => $file_name,
+                    'photo_banner_article' => $file_names,
                     'deskripsi' => request('deskripsi'),
                     'id_staff' => auth()->guard('staff')->user()->id, 
                 ]);
@@ -193,7 +239,7 @@ class ArticleController extends Controller
                             'message' => 'success',
                             'data' => $article,
                         ],
-                        200,
+                        200
                     );
                 } else {
                     return response()->json(
@@ -203,7 +249,7 @@ class ArticleController extends Controller
                             'message' => 'Error',
                             'data' => null,
                         ],
-                        200,
+                        200
                     );
                 }
                 // batas yang ada upload gambar by situs me: https://bit.ly/yogingoding
@@ -309,9 +355,9 @@ class ArticleController extends Controller
             $extension = $request->file('upload')->getClientOriginalExtension();
             $fileName = $fileName . '_' . time() . '.' . $extension;
     
-            $request->file('upload')->move(public_path('storage/media'), $fileName);
+            $request->file('upload')->move(public_path('/core/media'), $fileName);
     
-            $url = asset('storage/media/' . $fileName);
+            $url = asset('/core/media/' . $fileName);
             return response()->json(['fileName' => $fileName, 'uploaded'=> 1, 'url' => $url]);
         }
         

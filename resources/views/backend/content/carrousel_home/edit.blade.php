@@ -62,9 +62,11 @@
                                                 <input id="logo" type="file" name="banner_image" class="custom-file-input">
                                                 <label for="logo" class="custom-file-label">Choose file...</label>
                                             </div>
-                                            
+                                              @if ($errors->has('banner_image'))
+                                            <span class="text-danger">{{ $errors->first('banner_image') }}</span>
+                                        @endif
                                             <div class="d-block rounded">
-                                                <img src="{{ asset($carrousel->banner_image)}}" height="250" />
+                                                <img src="{{ asset('public/core/uploads/banner_image/'.$carrousel->banner_image) }}" height="250" />
                                             </div>
                                         </div>
                                     </div>

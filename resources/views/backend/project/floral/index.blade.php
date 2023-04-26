@@ -53,9 +53,9 @@
                                 @php $no = 1; @endphp
                                 @foreach ($floral as $item)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{$no++}}</td>
                                     <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset($item->image_floral) }}" width="300px">
+                                        <img alt="..." class="d-block rounded" src="{{ asset('public/core/uploads/image_floral/'.$item->image_floral) }}" width="300px">
                                     </td>
                                     <td>Photo</td>
                                     <td>

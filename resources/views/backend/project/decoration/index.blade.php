@@ -55,7 +55,7 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset('storage/'.$item->image_decoration) }}" width="300px">
+                                        <img alt="..." class="d-block rounded" src="{{ asset('public/core/uploads/image_decoration/'.$item->image_decoration) }}" width="300px">
                                     </td>
                                     <td>{{ $item->name }}</td>
                                     <td>

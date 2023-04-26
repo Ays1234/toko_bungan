@@ -49,15 +49,19 @@ class FloralController extends Controller
                      'message' => 'Error',
                      'data' => null,
                  ],
-                 200,
+                 200
              );
          }
-         if ($request->file('image_floral')) {
-             $path = $request->file('image_floral')->store('image_floral');
-         }
+         if($request->file('image_floral')){
+       $image = $request->file('image_floral');
+       $extension=$image->getClientOriginalExtension();
+       $file_name = 'File-image_floral-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/image_floral/');
+       $result=$image->move($destination_path,$file_name);
+       
          $floral = Floral::create([
              'name'=>request('name'),
-             'image_floral' => $path,
+             'image_floral' => $file_name,
              'id_staff' => auth()->guard('staff')->user()->id, 
          ]);
  
@@ -70,7 +74,7 @@ class FloralController extends Controller
                      'message' => 'success',
                      'data' => $floral,
                  ],
-                 200,
+                 200
              );
          } else {
              return response()->json([
@@ -80,6 +84,8 @@ class FloralController extends Controller
                  'data' => $floral,
              ]);
          }
+    }
+    //
     }
 
     /**
@@ -143,20 +149,28 @@ class FloralController extends Controller
                     'message' => 'Error',
                     'data' => null,
                 ],
-                200,
+                200
             );
         }
         $updatefloral= Floral::find($id);
+         $path = public_path().'/core/uploads/image_floral/';
         if ($request->file('image_floral')) {
             if ($request->image_floral) {
-                Storage::delete($updatefloral->image_floral);
+               $file_old = $path.$updatefloral->image_floral;
+                 unlink($file_old);
             }
-            $path = $request->file('image_floral')->store('image_floral');
+           
         }
+        
+        $image = $request->file('image_floral');
+       $extension=$image->getClientOriginalExtension();
+       $file_name = 'File-image_floral-'.date('Y-m-d-h-i-s').'.'.$extension;
+       $destination_path = public_path('/core/uploads/image_floral/');
+       $result=$image->move($destination_path,$file_name);
 
         $floral= $updatefloral->update([
             'name'=>request('name'),
-            'image_floral' => $path,
+            'image_floral' => $file_name,
             'id_staff' => auth()->guard('staff')->user()->id, 
         ]);
 
@@ -171,7 +185,7 @@ class FloralController extends Controller
                     'message' => 'success',
                     'data' => $floral,
                 ],
-                200,
+                200
             );
         } else {
             return response()->json(
@@ -181,7 +195,7 @@ class FloralController extends Controller
                     'message' => 'Error',
                     'data' => null,
                 ],
-                200,
+                200
             );
         }
     }
@@ -196,8 +210,10 @@ class FloralController extends Controller
     {
         //
         $deletefloar = Floral::find($id);
+         $path = public_path().'/core/uploads/image_floral/';
         if ($deletefloar->image_floar) {
-            Storage::delete($deletefloar->image_floar);
+            $file_old = $path.$deletefloar->image_floral;
+                 unlink($file_old);
         }
     $floar = $deletefloar->delete();
 

@@ -54,9 +54,9 @@
                                 @php $no = 1; @endphp
                                 @foreach ($carrousels as $carrousel)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{$no++}}</td>
                                     <td>
-                                        <img alt="..." class="d-block rounded" src="{{ asset($carrousel->banner_image) }}" width="300px">
+                                        <img alt="..." class="d-block rounded" src="{{ asset('public/core/uploads/banner_image/'.$carrousel->banner_image) }}" width="300px">
                                     </td>
                                     <td>{{ $carrousel->name }}</td>
                                     <td>{{ $carrousel->type_device }}</td>
@@ -150,5 +150,14 @@
             ]
         });
     });
+    
+       //message with toastr
+     @if (session()->has('success'))
+
+toastr.success('{{ session('success') }}', 'BERHASIL!');
+@elseif (session()->has('error'))
+
+toastr.error('{{ session('error') }}', 'GAGAL!');
+@endif
 </script>
 @endpush

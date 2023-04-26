@@ -21,16 +21,9 @@
                     CMS
                 </div>
             </li>
-            @can('staff')
             <li class="{{  request()->routeIs('dashboard.index') ? 'active' : '' }}">
                 <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Beranda</span></a>
             </li>
-            @else
-            <div class="btn btn-info btn-lg">
-              You have User Access
-            </div>
-            @endcan
-            
             <li >
                 <a href="{{ Route::currentRouteName() === 'staff.index'|| Route::currentRouteName() === 'category.index'  ? 'active' : '' }}"><i class="fa fa-th-large"></i> <span class="nav-label">Master</span>
                     <span class="fa arrow"></span></a>
