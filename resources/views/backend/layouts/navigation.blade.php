@@ -30,26 +30,24 @@
             $menu = \DB::table('menu')
                 ->join('akses_menu', 'akses_menu.menu_id', '=', 'menu.id')
                 ->get();
-                $jumlah_submenu=count($menu);
+            $jumlah_submenu = count($menu);
             ?>
-          
-         <?php echo $jumlah_submenu; ?>
-            
-@if($jumlah_submenu == 0)
 
-hah kosong
+            <?php echo $jumlah_submenu; ?>
 
-@else
-@foreach ($menu as $menus)
-<li >
-    <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Master</span>
-        <span class="fa arrow"></span></a>
-    <ul class="nav nav-second-level collapse">
-        <li ><a href="{{route($menus->routing)}}">Staff</a></li>
-    </ul>
-</li>
-@endforeach
-@endif
+            @if ($jumlah_submenu == 0)
+                hah kosong
+            @else
+                @foreach ($menu as $menus)
+                    <li>
+                        <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Master</span>
+                            <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="{{ route($menus->routing) }}">Staff</a></li>
+                        </ul>
+                    </li>
+                @endforeach
+            @endif
 
 
 
